@@ -1,0 +1,20 @@
+{
+  "name": "ambients",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:parser": "pegjs -o src/parser/index.js src/parser/ambients.pegjs",
+    "build:parser:tiny": "pegjs --optimize size -o src/parser/tiny.js src/parser/ambients.pegjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^6.2.1",
+    "pegjs": "^0.10.0"
+  },
+  "standard": {
+    "env": "mocha"
+  }
+}
