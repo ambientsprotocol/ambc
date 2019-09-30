@@ -1,0 +1,21 @@
+{
+  "children": [
+    {
+      "children": {
+        "id": "b",
+        "type": "In"
+      },
+      "id": "a",
+      "type": "Ambient"
+    },
+    {
+      "children": {
+        "id": "a",
+        "type": "In_"
+      },
+      "id": "b",
+      "type": "Ambient"
+    }
+  ],
+  "type": "Parallel"
+}

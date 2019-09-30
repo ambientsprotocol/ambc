@@ -1,0 +1,50 @@
+{
+ "children": [
+   {
+     "children": {
+       "id": "c",
+       "type": "In"
+     },
+     "id": "a",
+     "type": "Ambient"
+   },
+   {
+     "children": {
+       "id": "c",
+       "type": "In"
+     },
+     "id": "b",
+     "type": "Ambient"
+   },
+   {
+     "children": {
+       "children": [
+         {
+           "id": "a",
+           "type": "In_"
+         },
+         {
+           "id": "b",
+           "type": "In_"
+         },
+         {
+           "id": "d",
+           "type": "In"
+         }
+       ],
+       "type": "Serial"
+     },
+     "id": "c",
+     "type": "Ambient"
+   },
+   {
+     "children": {
+       "id": "c",
+       "type": "In_"
+     },
+     "id": "d",
+     "type": "Ambient"
+   }
+ ],
+ "type": "Parallel"
+}

@@ -1,0 +1,22 @@
+{
+  "children": {
+    "children": [
+      {
+        "children": {
+          "id": "b",
+          "type": "Out"
+        },
+        "id": "a",
+        "type": "Ambient"
+      },
+      {
+        "id": "a",
+        "type": "Out_"
+      }
+    ],
+    "type": "Parallel"
+  },
+  "id": "b",
+  "type": "Ambient"
+}
+

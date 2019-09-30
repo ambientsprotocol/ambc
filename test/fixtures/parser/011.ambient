@@ -1,0 +1,8 @@
+func[
+  in_ message.open message.open func.open_|
+  arg[
+    in func.in x.open_|
+    string[hello[]]
+  ]
+]|
+open func

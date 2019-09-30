@@ -1,0 +1,5 @@
+x[
+    call[out x.in y.open_|return[open_.in x]]|
+    out_ call.in_ y
+  ] |
+  y[in_ call.open call.open return]

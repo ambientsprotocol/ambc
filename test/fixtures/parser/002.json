@@ -1,0 +1,18 @@
+{
+  "children": [
+    {
+      "children": {
+        "id": "b",
+        "type": "Noop"
+      },
+      "id": "a",
+      "type": "Ambient"
+    },
+    {
+      "id": "c",
+      "type": "Noop"
+    }
+  ],
+  "type": "Parallel"
+}
+

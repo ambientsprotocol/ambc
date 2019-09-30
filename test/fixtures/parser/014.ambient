@@ -1,0 +1,18 @@
+string_concat[
+  in_ call.open call.(
+    func[
+      left[
+        in_ arg.open arg.in string.in concat
+      ]|
+      right[
+        in_ arg.open arg.in string.in concat
+      ]|
+      string[
+        concat[in_ left|in_ right]|
+        in_ left|in_ right
+      ]|
+      open_
+    ]|
+    open return.open_
+  )
+]

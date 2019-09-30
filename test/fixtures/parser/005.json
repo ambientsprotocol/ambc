@@ -1,0 +1,31 @@
+{
+  "children": {
+    "children": [
+      {
+        "children": {
+          "children": [
+            {
+              "id": "*",
+              "type": "Open_"
+            },
+            {
+              "id": "c",
+              "type": "Noop"
+            }
+          ],
+          "type": "Parallel"
+        },
+        "id": "b",
+        "type": "Ambient"
+      },
+      {
+        "id": "b",
+        "type": "Open"
+      }
+    ],
+    "type": "Parallel"
+  },
+  "id": "a",
+  "type": "Ambient"
+}
+

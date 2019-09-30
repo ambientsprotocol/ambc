@@ -1,0 +1,3 @@
+arg[in_ x.open x.in y.open_] | x[in arg.open_|input[]] |
+  y[in_ arg.open arg.in func.open_] |
+  func[in_ y.open y.open_]

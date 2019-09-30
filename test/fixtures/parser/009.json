@@ -1,0 +1,104 @@
+{
+  "children": [
+    {
+      "children": {
+        "children": [
+          {
+            "id": "x",
+            "type": "In_"
+          },
+          {
+            "id": "x",
+            "type": "Open"
+          },
+          {
+            "id": "y",
+            "type": "In"
+          },
+          {
+            "id": "*",
+            "type": "Open_"
+          }
+        ],
+        "type": "Serial"
+      },
+      "id": "arg",
+      "type": "Ambient"
+    },
+    {
+      "children": {
+        "children": [
+          {
+            "children": [
+              {
+                "id": "arg",
+                "type": "In"
+              },
+              {
+                "id": "*",
+                "type": "Open_"
+              }
+            ],
+            "type": "Serial"
+          },
+          {
+            "id": "input",
+            "type": "Noop"
+          }
+        ],
+        "type": "Parallel"
+      },
+      "id": "x",
+      "type": "Ambient"
+    },
+    {
+      "children": {
+        "children": [
+          {
+            "id": "arg",
+            "type": "In_"
+          },
+          {
+            "id": "arg",
+            "type": "Open"
+          },
+          {
+            "id": "func",
+            "type": "In"
+          },
+          {
+            "id": "*",
+            "type": "Open_"
+          }
+        ],
+        "type": "Serial"
+      },
+      "id": "y",
+      "type": "Ambient"
+    },
+    {
+      "children": {
+        "children": [
+          {
+            "id": "y",
+            "type": "In_"
+          },
+          {
+            "id": "y",
+            "type": "Open"
+          },
+          {
+            "id": "*",
+            "type": "Open_"
+          }
+        ],
+        "type": "Serial"
+      },
+      "id": "func",
+      "type": "Ambient"
+    }
+  ],
+  "type": "Parallel"
+}
+
+

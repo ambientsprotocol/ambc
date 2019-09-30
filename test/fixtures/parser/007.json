@@ -1,0 +1,49 @@
+{
+  "children": [
+    {
+      "children": {
+        "children": [
+          {
+            "id": "b",
+            "type": "In"
+          },
+          {
+            "id": "c",
+            "type": "Noop"
+          }
+        ],
+        "type": "Parallel"
+      },
+      "id": "a",
+      "type": "Ambient"
+    },
+    {
+      "children": {
+        "children": [
+          {
+            "id": "b",
+            "type": "In"
+          },
+          {
+            "id": "d",
+            "type": "Noop"
+          }
+        ],
+        "type": "Parallel"
+      },
+      "id": "a",
+      "type": "Ambient"
+    },
+    {
+      "children": {
+        "id": "a",
+        "type": "In_"
+      },
+      "id": "b",
+      "type": "Ambient"
+    }
+  ],
+  "type": "Parallel"
+}
+
+
