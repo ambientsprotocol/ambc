@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "build:parser": "pegjs -o src/parser/index.js src/parser/ambients.pegjs",
     "build:parser:tiny": "pegjs --optimize size -o src/parser/tiny.js src/parser/ambients.pegjs"
   },
