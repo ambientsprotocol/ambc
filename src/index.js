@@ -1,5 +1,7 @@
-const parser = require("./parser")
+const parser = require('./parser')
+const fromJS = require('./fromjs')
 
 module.exports = {
-  parser: parser
+  parser: parser,
+  fromJS: fromJS
 }
