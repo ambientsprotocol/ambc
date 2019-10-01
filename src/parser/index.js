@@ -181,7 +181,7 @@ function peg$parse(input, options) {
       peg$c15 = peg$literalExpectation("[", false),
       peg$c16 = "]",
       peg$c17 = peg$literalExpectation("]", false),
-      peg$c18 = function(path, ex) { 
+      peg$c18 = function(path, ex) {
             return { type: "Ambient", id: path.trim(), children: ex };
         },
       peg$c19 = "in_",

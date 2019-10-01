@@ -182,7 +182,7 @@ function peg$parse(input, options) {
         peg$literalExpectation("[", false),
         "]",
         peg$literalExpectation("]", false),
-        function(path, ex) { 
+        function(path, ex) {
               return { type: "Ambient", id: path.trim(), children: ex };
           },
         "in_",
