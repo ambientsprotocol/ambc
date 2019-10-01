@@ -29,20 +29,32 @@ SubExecution
     / ThirdTier
 
 ThirdTier
-  = id:ID "[]" { return { "type": "Noop", id: id.trim() }; }
-  / id:ID "[" _ ex:Execution _ "]" {
-      return { type: "Ambient", id: id.trim(), children: ex };
+  = "(" _ ex:Execution _ ")" { return { type: "Group", ex: ex }; }
+  / AMBIENT
+  / PATH
+
+AMBIENT
+  = path:PATH "[]" { return { "type": "Noop", id: path.trim() }; }
+  / path:PATH "[" _ ex:Execution _ "]" {
+      return { type: "Ambient", id: path.trim(), children: ex };
   }
-  / "(" _ ex:Execution _ ")" { return { type: "Group", ex: ex }; }
-  / "in_" id:ID* { return { "type": "In_", id: id[0] ? id[0].trim() : '*' }; }
-  / "in" id:ID { return { "type": "In", id: id.trim() }; }
+
+CAPABILITY
+  = "in_" id:ID* { return { "type": "In_", id: id[0] ? id[0].trim() : '*' }; }
+  / "in " id:ID { return { "type": "In", id: id.trim() }; }
   / "open_" id:ID* { return { "type": "Open_", id: id[0] ? id[0].trim() : '*' }; }
-  / "open" id:ID { return { "type": "Open", id: id.trim() }; }
-  / "out_" id:ID* { return { "type": "Out_", id: id[0] ? id[0].trim() : '*' }; }
-  / "out" id:ID { return { "type": "Out", id: id.trim() }; }
+  / "open " id:ID { return { "type": "Open", id: id.trim() }; }
+  / "out_ " id:ID* { return { "type": "Out_", id: id[0] ? id[0].trim() : '*' }; }
+  / "out " id:ID { return { "type": "Out", id: id.trim() }; }
 
-
+PATH
+  = "nu" _ id:ID { return id; }
+  / "rec" _ pv:PROCVAR { return pv; }
+  / pv:PROCVAR { return pv; }
+  / cap:CAPABILITY { return cap; }
+  / id:ID { return id; }
 
 ID "string" = _ [a-zA-Z0-0_\-]+ { return text() }
+PROCVAR "string" = [A-Z] { return test() }
 
 _ "whitespace" = [ \t\n\r]*
