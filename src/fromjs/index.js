@@ -105,29 +105,25 @@ rules.CallExpression = function (block, parent, depth, currentPath, options, amb
     return parseBlock(e, parent, depth, currentPath, {...opts, ...options}, ambients)
   })
 
+  const canBeCalled = (parent.type === 'VariableDeclarator' && parent.init.type === 'CallExpression') &&
+    (parent !== 'root')
+
+  let syntax = ''
+
   if (parent === 'root') {
-    let syntax = ''
     syntax += `call[in ${funcName}.open_.return[open_.in func]]|`
     syntax += `func[in_ ${funcName}.open ${funcName}.open_]|open func`
-    return syntax
   } else {
-    let syntax = ''
-
-    if (parent.type === 'VariableDeclarator' && parent.init.type === 'CallExpression')
-      syntax += `in_ call.open call|`
-
+    syntax += canBeCalled ? `in_ call.open call|` : ''
     syntax += `out_ call.in_ ${funcName}|`
     syntax += `call[out ${parentName}.in ${funcName}.open_.return[open_.in ${parentName}.in func]]`
     syntax += '|'
     syntax += `func[in_ ${funcName}.open ${funcName}.(`
     syntax += params.length > 0 ? (params.join('') + '|open func.') : ''
     syntax += 'open_)]|open func.'
-
-    if (parent.type === 'VariableDeclarator' && parent.init.type === 'CallExpression')
-      syntax += `open return.open_`
-
-    return syntax
+    syntax += canBeCalled ? `open return.open_` : ''
   }
+  return syntax
 }
 
 rules.Identifier = (block, parent, depth, currentPath, options, ambients) => block.name
