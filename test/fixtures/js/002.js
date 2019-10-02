@@ -1,3 +1,3 @@
 /* Constant function */
-let a = () => "hello"
+const a = () => "hello"
 a()

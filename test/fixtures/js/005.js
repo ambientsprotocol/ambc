@@ -1,5 +1,5 @@
 /* Assign a variable to a variable that has a function */
-let a = () => "hello"
-let b = a
-let c = b
+const a = () => "hello"
+const b = a
+const c = b
 c()

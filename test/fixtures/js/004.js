@@ -1,4 +1,4 @@
 /* Assign function to a variable */
-let a = () => "hello"
-let b = a
+const a = () => "hello"
+const b = a
 b()

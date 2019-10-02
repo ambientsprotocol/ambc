@@ -62,8 +62,9 @@ rules.ArrowFunctionExpression = function (block, parent, depth, currentPath, opt
   } else {
     let syntax = 'in_ call.open call.('
 
-    if (block.body.type === "Identifier") {
+    if (block.body.type === "Identifier" && options.names[block.body.name]) {
       // Replace variable directly with its (previously compiled) value
+      console.log(block.body.name, options.names[block.body.name])
       const value = options.names[block.body.name].value
       syntax += value + '|'
     } else if (block.body.type === "Literal") {
