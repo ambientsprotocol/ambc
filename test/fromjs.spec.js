@@ -5,7 +5,7 @@ const fs = require('fs')
 const FIXTURES_PATH = 'test/fixtures/js/'
 
 describe('JS Compiler', function () {
-  it('compiles ', () => {
+  it('compiles to ambient syntax', () => {
     const fixtures = fs.readdirSync(FIXTURES_PATH)
     while (fixtures.length > 0) {
       console.log(`Compiling: ${fixtures[0].split('.')[0]}`)

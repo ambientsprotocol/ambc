@@ -3,6 +3,13 @@ const fs = require('fs')
 
 let rules = {}
 let names = {}
+let aliases = {}
+
+const findAlias = (name) => {
+  if (aliases[name] && aliases[aliases[name]])
+    return findAlias(aliases[name])
+  return aliases[name]
+}
 
 rules.VariableDeclaration = function (block, parent, depth, currentPath, options) {
   // Currently a pass thru to VariableDeclarator
@@ -15,6 +22,9 @@ rules.VariableDeclarator = function (block, parent, depth, currentPath, options)
   const init = parseBlock(block.init, block, depth, currentPath)
 
   if (block.init.type === "Literal" && parent.type === "VariableDeclaration") {
+    return ""
+  } else if (block.init.type === "Identifier" && parent.type === "VariableDeclaration") {
+    aliases[name] = init
     return ""
   }
 
@@ -72,8 +82,9 @@ rules.ExpressionStatement = function (block, parent, depth, currentPath, options
 }
 
 rules.CallExpression = function (block, parent, depth, currentPath, options, ambients) {
-  // TODO: Resolve this better
-  const funcName = block.callee.callee ? block.callee.callee.name : block.callee.name
+  const callee = block.callee.callee ? block.callee.callee.name : block.callee.name
+  const alias = findAlias(callee)
+  const funcName = alias || callee
   const parentName = parent.id ? parent.id.name : ''
 
   const args = block.arguments
@@ -112,8 +123,9 @@ rules.Literal = (block, parent, depth, currentPath, options, ambients) => {
     const p = isLast ? "" : "|"
     ambient = `arg[${type}[${value}[]]|in ${target}.open_]${p}`
   } else if (parent.type === "VariableDeclarator") {
-    ambient = `${type}[${value}[]]|`
+    ambient = `${type}[${value}[]]`
     names[parent.id.name] = {value: ambient}
+    ambient += '|'
   }
   return ambient
 }

@@ -1,0 +1,9 @@
+a[
+  in_ call.open call.(
+    string[hello[]]|
+    open return.open_
+  )
+]|
+call[in a.open_.return[open_.in func]]|
+func[in_ a.open a.open_]|
+open func
