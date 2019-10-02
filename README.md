@@ -9,7 +9,7 @@
 1. Compile source language code into "byecode" DAG, and store it in a distributed, peer-to-peer network.
 2. Retrieve the DAG from said network and safely + verfiably execute the code.
 
-This code covers the first part: the compiler.
+This code covers the first part: the compiler. This is covered in great detail in [Chapter 6 of the Ambients Whitepaper](https://github.com/ambientsprotocol/whitepaper/blob/master/06-compilation-model.md)
 
 ### Stage 0: Source code -> Ambients syntax
 
