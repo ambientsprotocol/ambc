@@ -2,9 +2,15 @@
 
 > Compile your code into something that "speaks" Ambients
 
+## Background
+
+[Ambients](https://ambients.org) is a protocol for distributed computation. It allows you to request and execute computation as easily as you can data inside OrbitDB. Think of it like AWS Lambda or Azure Cloud functions, but on a decentralized peer-to-peer network.
+
+The protocol also includes guarantees as to the verfiability and safety of the code, all without a blockchain.
+
 ## Description
 
-[Ambients](https://ambients.org) is a protocol for distributed computation. It has two main functions:
+A working implementation of the Ambients protocol has two main functions:
 
 1. Compile source language code into "byecode" DAG, and store it in a distributed, peer-to-peer network.
 2. Retrieve the DAG from said network and safely + verfiably execute the code.
