@@ -1,0 +1,32 @@
+a[
+  in_ call.open call.(
+    string[hello[]]|
+    open return.open_
+  )
+]|
+b[
+  in_ call.open call|
+  out_ call.in_ a|
+  call[
+    out b.in a.open_.return[open_.in b.in func]
+  ]|
+  func[
+    in_ a.open a.(open_)
+  ]|
+  open func.open return.open_
+]|
+c[
+  in_ call.open call.(
+    out_ call.in_ b|
+    call[
+      out c.in b.open_.return[open_.in c.in func]
+    ]|
+    func[
+      in_ b.open b.open_
+    ]|
+    open func.open return.open_
+  )
+]|
+call[in c.open_.return[open_.in func]]|
+func[in_ c.open c.open_]|
+open func

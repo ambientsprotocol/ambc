@@ -60,17 +60,27 @@ rules.ArrowFunctionExpression = function (block, parent, depth, currentPath, opt
 
     return syntax
   } else {
-    let syntax = 'in_ call.open call.('
+    let syntax = 'in_ call.open call'
 
     if (block.body.type === "Identifier" && options.names[block.body.name]) {
       // Replace variable directly with its (previously compiled) value
-      console.log(block.body.name, options.names[block.body.name])
+      syntax += '.('
       const value = options.names[block.body.name].value
       syntax += value + '|'
     } else if (block.body.type === "Literal") {
+      syntax += '.('
       syntax += parseBlock(block.body, parent, depth, currentPath, options)
     } else {
-      syntax += parseBlock(block.body, parent, depth, currentPath, options)
+      syntax += '.('
+      if (block.type === 'ArrowFunctionExpression' && block.body.name) {
+        const source = parent.id.name
+        const target = block.body.name
+        syntax += `out_ call.in_ ${target}|`
+        syntax += `call[out ${source}.in ${target}.open_.return[open_.in ${source}.in func]]|`
+        syntax += `func[in_ ${target}.open ${target}.open_]|open func.`
+      } else {
+        syntax += parseBlock(block.body, parent, depth, currentPath, options)
+      }
     }
 
     syntax += 'open return.open_)'
@@ -101,12 +111,21 @@ rules.CallExpression = function (block, parent, depth, currentPath, options, amb
     syntax += `func[in_ ${funcName}.open ${funcName}.open_]|open func`
     return syntax
   } else {
-    let syntax = `out_ call.in_ ${funcName}|`
+    let syntax = ''
+
+    if (parent.type === 'VariableDeclarator' && parent.init.type === 'CallExpression')
+      syntax += `in_ call.open call|`
+
+    syntax += `out_ call.in_ ${funcName}|`
     syntax += `call[out ${parentName}.in ${funcName}.open_.return[open_.in ${parentName}.in func]]`
     syntax += '|'
     syntax += `func[in_ ${funcName}.open ${funcName}.(`
     syntax += params.length > 0 ? (params.join('') + '|open func.') : ''
     syntax += 'open_)]|open func.'
+
+    if (parent.type === 'VariableDeclarator' && parent.init.type === 'CallExpression')
+      syntax += `open return.open_`
+
     return syntax
   }
 }
