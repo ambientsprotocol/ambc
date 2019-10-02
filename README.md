@@ -47,7 +47,7 @@ open func
   { "type": "Ambient", "id": "func", "children":[
     { "type": "Parallel", "children": [
       { "type": "Open_", "id": "*" },
-      { "type": "Ambient", "id": "string", children: [
+      { "type": "Ambient", "id": "string", "children": [
         { "type": "Noop", "id": "hello" }
       ]
     }
