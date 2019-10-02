@@ -1,22 +1,8 @@
 const esprima = require('esprima')
 const fs = require('fs')
-// const path = require('path')
-// let names = {}
 
-// const getOutPath = (currentPath) => currentPath === "root" ? [] : currentPath.split("/").filter(e => e !== '')
-// const getInPath = (currentPath) => currentPath === "root" ? [] : currentPath.split("/").filter(e => e !== '')
-// const binaryOperatorToName = (operator) => {
-//   switch (operator) {
-//     case "+":
-//       return "plus"
-//     case "-":
-//       return "minus"
-//     default:
-//       return "monoid"
-//   }
-// }
-
-const rules = {}
+let rules = {}
+let names = {}
 
 rules.VariableDeclaration = function (block, parent, depth, currentPath, options) {
   // Currently a pass thru to VariableDeclarator
@@ -25,26 +11,59 @@ rules.VariableDeclaration = function (block, parent, depth, currentPath, options
 }
 
 rules.VariableDeclarator = function (block, parent, depth, currentPath, options) {
-  const id = parseBlock(block.id, block, depth, currentPath)
+  const name = parseBlock(block.id, block, depth, currentPath)
   const init = parseBlock(block.init, block, depth, currentPath)
-  return id + init
+
+  if (block.init.type === "Literal" && parent.type === "VariableDeclaration") {
+    return ""
+  }
+
+  return name + '[' + init + ']'
 }
 
 rules.ArrowFunctionExpression = function (block, parent, depth, currentPath, options) {
+  const parentName = parent.id ? parent.id.name : null
   const params = block.params
+  const paramNames = params.map(e => e.name)
   const hasParams = (params && params.length > 0)
 
+  names[parentName] = {args: paramNames} // save the param names to a global cache for using as a lookup index elsewhere in the compiler
+
+  let functionBody = ""
+  let functionName = ""
+  let functionType = ""
+
+  if (block.body.type === "BinaryExpression") {
+    const operator = block.body.operator
+    if (operator === "+") {
+      functionName = `concat`
+      functionType = `string`
+    }
+  }
+
   if (hasParams) {
-    let syntax = '[in_ call.open call.(func['
+    let syntax = 'func['
     for (const param of block.params) {
       syntax += parseBlock(param, block, depth, currentPath, options)
-      syntax += '[in_ arg.open arg.in string.in concat]|'
+      syntax += `[in_ arg.open arg.in ${functionType}.in ${functionName}]|`
     }
-    syntax += parseBlock(block.body, parent, depth, currentPath)
-    syntax += '|open_]|open return.open_)]|'
+    syntax += parseBlock(block.body, block, depth, currentPath)
+    syntax += '|open_]|'
+
     return syntax
   } else {
-    return parseBlock(block.body, parent, depth, currentPath, options)
+    let syntax = 'in_ call.open call.('
+
+    if (block.body.type === "Identifier") {
+      // TODO
+    } else if (block.body.type === "Literal") {
+      syntax += parseBlock(block.body, parent, depth, currentPath, options)
+    } else {
+      syntax += parseBlock(block.body, parent, depth, currentPath, options)
+    }
+
+    syntax += 'open return.open_)'
+    return syntax
   }
 }
 
@@ -55,28 +74,49 @@ rules.ExpressionStatement = function (block, parent, depth, currentPath, options
 rules.CallExpression = function (block, parent, depth, currentPath, options, ambients) {
   // TODO: Resolve this better
   const funcName = block.callee.callee ? block.callee.callee.name : block.callee.name
-  const out = parent.id ? parent.id.name : ''
+  const parentName = parent.id ? parent.id.name : ''
+
+  const args = block.arguments
+  const paramNames = names[funcName] ? names[funcName].args : []
+  const params = args.map((e, i) => {
+    const opts = {target: paramNames[i], isLast: i === paramNames.length - 1}
+    return parseBlock(e, parent, depth, currentPath, opts)
+  })
 
   if (parent === 'root') {
-    return `|open ${funcName}`
+    let syntax = ''
+    syntax += `call[in ${funcName}.open_.return[open_.in func]]|`
+    syntax += `func[in_ ${funcName}.open ${funcName}.open_]|open func`
+    return syntax
   } else {
-    let syntax = `[out_ call.in_ ${funcName}|open func.open_|`
-    syntax += `call[out ${out}.in ${funcName}.open_.return[open_.in ${out}.in func]]`
+    let syntax = `out_ call.in_ ${funcName}|`
+    syntax += `call[out ${parentName}.in ${funcName}.open_.return[open_.in ${parentName}.in func]]`
     syntax += '|'
     syntax += `func[in_ ${funcName}.open ${funcName}.(`
-
-    // TODO: How do we know that the args in ?
-    // Maybe the "function table" that creates the `nu`s can hold some function metadata
-    if (block.arguments.length === 2) {
-      syntax += `arg[string[${block.arguments[0].value}[]]|in left.open_]|`
-      syntax += `arg[string[${block.arguments[1].value}[]]|in right.open_]|`
-    }
-    syntax += 'open func.open_)]]'
+    syntax += params.length > 0 ? (params.join('') + '|open func.') : ''
+    syntax += 'open_)]|open func.'
     return syntax
   }
 }
 
 rules.Identifier = (block, parent, depth, currentPath, options, ambients) => block.name
+
+rules.Literal = (block, parent, depth, currentPath, options, ambients) => {
+  let ambient = ''
+  const value = block.value
+  const type = typeof value
+  const parentBody = parent.init.body
+
+  if (parentBody && parentBody.type === "CallExpression") {
+    const { target, isLast } = options
+    const p = isLast ? "" : "|"
+    ambient = `arg[${type}[${value}[]]|in ${target}.open_]${p}`
+  } else if (parent.type === "VariableDeclarator") {
+    ambient = `${type}[${value}[]]|`
+    names[parent.id.name] = {value: ambient}
+  }
+  return ambient
+}
 
 rules.BinaryExpression = function (block, parent, depth, currentPath, options, ambients) {
   // TODO: Switch on operator like above ^^
@@ -85,33 +125,26 @@ rules.BinaryExpression = function (block, parent, depth, currentPath, options, a
   return `string[concat[in_ ${left}|in_ ${right}]|in_ ${left}|in_ ${right}]`
 }
 
+rules.Program = function (block, parent, depth, currentPath, options) {
+  let ambients = ''
+    block.body.forEach((e, i) => {
+      // console.log("parse:", e)
+      const isLast = (i === block.body.length - 1)
+      const parsed = parseBlock(e, parent, depth, currentPath, '')
+      ambients += parsed + (isLast || parsed === "" ? "" : "|")
+    })
+  return ambients
+}
+
 const parseBlock = (block, parent, depth, currentPath, options) => {
   parent = parent || 'root'
   let ambients = ''
-
-  // Set up, register names, etc.
-  if (block && block.body && Array.isArray(block.body)) {
-    // Create names
-    block.body
-      .filter(e => e.declarations !== undefined)
-      .map(e => e.declarations[0].id.name)
-      .forEach(e => { ambients += 'nu ' + e + '.' })
-
-    // Create ambients
-    ambients += '('
-
-    block.body.forEach((e, i) => {
-      ambients += parseBlock(e, parent, depth, currentPath, '')
-    })
-
-    ambients += ')'
-  }
   if (rules[block.type]) {
     ambients += rules[block.type](block, parent, depth, currentPath, options)
   } else {
-    console.log(`Unknown block type: ${block.type}`)
+    console.log(`Unknown block type "${block.type}" in block:`)
+    console.log(block)
   }
-
   return ambients
 }
 
