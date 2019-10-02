@@ -2,29 +2,27 @@ const esprima = require('esprima')
 const fs = require('fs')
 
 let rules = {}
-let names = {}
-let aliases = {}
 
-const findAlias = (name) => {
+const findAlias = (name, aliases) => {
   if (aliases[name] && aliases[aliases[name]])
-    return findAlias(aliases[name])
+    return findAlias(aliases[name], aliases)
   return aliases[name]
 }
 
 rules.VariableDeclaration = function (block, parent, depth, currentPath, options) {
   // Currently a pass thru to VariableDeclarator
   // TODO: multiple declarations i.e. x = y = 3?
-  return parseBlock(block.declarations[0], block, depth, currentPath)
+  return parseBlock(block.declarations[0], block, depth, currentPath, options)
 }
 
 rules.VariableDeclarator = function (block, parent, depth, currentPath, options) {
-  const name = parseBlock(block.id, block, depth, currentPath)
-  const init = parseBlock(block.init, block, depth, currentPath)
+  const name = parseBlock(block.id, block, depth, currentPath, options)
+  const init = parseBlock(block.init, block, depth, currentPath, options)
 
   if (block.init.type === "Literal" && parent.type === "VariableDeclaration") {
     return ""
   } else if (block.init.type === "Identifier" && parent.type === "VariableDeclaration") {
-    aliases[name] = init
+    options.aliases[name] = init
     return ""
   }
 
@@ -37,7 +35,7 @@ rules.ArrowFunctionExpression = function (block, parent, depth, currentPath, opt
   const paramNames = params.map(e => e.name)
   const hasParams = (params && params.length > 0)
 
-  names[parentName] = {args: paramNames} // save the param names to a global cache for using as a lookup index elsewhere in the compiler
+  options.names[parentName] = {args: paramNames} // save the param names to a global cache for using as a lookup index elsewhere in the compiler
 
   let functionBody = ""
   let functionName = ""
@@ -57,7 +55,7 @@ rules.ArrowFunctionExpression = function (block, parent, depth, currentPath, opt
       syntax += parseBlock(param, block, depth, currentPath, options)
       syntax += `[in_ arg.open arg.in ${functionType}.in ${functionName}]|`
     }
-    syntax += parseBlock(block.body, block, depth, currentPath)
+    syntax += parseBlock(block.body, block, depth, currentPath, options)
     syntax += '|open_]|'
 
     return syntax
@@ -65,7 +63,9 @@ rules.ArrowFunctionExpression = function (block, parent, depth, currentPath, opt
     let syntax = 'in_ call.open call.('
 
     if (block.body.type === "Identifier") {
-      // TODO
+      // Replace variable directly with its (previously compiled) value
+      const value = options.names[block.body.name].value
+      syntax += value + '|'
     } else if (block.body.type === "Literal") {
       syntax += parseBlock(block.body, parent, depth, currentPath, options)
     } else {
@@ -78,20 +78,20 @@ rules.ArrowFunctionExpression = function (block, parent, depth, currentPath, opt
 }
 
 rules.ExpressionStatement = function (block, parent, depth, currentPath, options, ambients) {
-  return parseBlock(block.expression, parent, depth, currentPath)
+  return parseBlock(block.expression, parent, depth, currentPath, options, ambients)
 }
 
 rules.CallExpression = function (block, parent, depth, currentPath, options, ambients) {
   const callee = block.callee.callee ? block.callee.callee.name : block.callee.name
-  const alias = findAlias(callee)
+  const alias = findAlias(callee, options.aliases)
   const funcName = alias || callee
   const parentName = parent.id ? parent.id.name : ''
 
   const args = block.arguments
-  const paramNames = names[funcName] ? names[funcName].args : []
+  const paramNames = options.names[funcName] ? options.names[funcName].args : []
   const params = args.map((e, i) => {
     const opts = {target: paramNames[i], isLast: i === paramNames.length - 1}
-    return parseBlock(e, parent, depth, currentPath, opts)
+    return parseBlock(e, parent, depth, currentPath, {...opts, ...options}, ambients)
   })
 
   if (parent === 'root') {
@@ -124,7 +124,7 @@ rules.Literal = (block, parent, depth, currentPath, options, ambients) => {
     ambient = `arg[${type}[${value}[]]|in ${target}.open_]${p}`
   } else if (parent.type === "VariableDeclarator") {
     ambient = `${type}[${value}[]]`
-    names[parent.id.name] = {value: ambient}
+    options.names[parent.id.name] = {value: ambient}
     ambient += '|'
   }
   return ambient
@@ -142,7 +142,7 @@ rules.Program = function (block, parent, depth, currentPath, options) {
     block.body.forEach((e, i) => {
       // console.log("parse:", e)
       const isLast = (i === block.body.length - 1)
-      const parsed = parseBlock(e, parent, depth, currentPath, '')
+      const parsed = parseBlock(e, parent, depth, currentPath, options)
       ambients += parsed + (isLast || parsed === "" ? "" : "|")
     })
   return ambients
@@ -163,5 +163,5 @@ const parseBlock = (block, parent, depth, currentPath, options) => {
 module.exports = function (input) {
   const js = fs.readFileSync(input || process.argv[2] || './source.js').toString()
   const parsed = esprima.parseScript(js)
-  return parseBlock(parsed, null, 0, '', '')
+  return parseBlock(parsed, null, 0, '', {names: {}, aliases: {}})
 }
