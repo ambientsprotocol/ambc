@@ -11,7 +11,7 @@
 
 This code covers the first part: the compiler.
 
-### Stage 0: Source Code -> Ambients Syntax
+### Stage 0: Source code -> Ambients syntax
 
 ```JavaScript
 () => "hello"
@@ -25,14 +25,14 @@ func[
 open func
 ```
 
-#### Supported Source Languages
+#### Supported source languages
 
 - JavaScript (WIP) [Using Esprima AST](https://github.com/aphelionz/ambients.js/blob/master/src/fromjs/index.js)
 
 If you think you know a particular language (Ruby, C#, etc) _really_ well and want to get your head around Ambients,
 this is a great place to start contributing. It's even just a great way of testing your understanding.
 
-### Stage 1: Ambients Syntax to Preliminary AST
+### Stage 1: Ambients Syntax to preliminary Abstract Syntax Tree (AST)
 
 ```
 func[
