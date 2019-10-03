@@ -5,15 +5,15 @@
         "children": [
           {
             "id": "x",
-            "type": "In_"
-          },
-          {
-            "id": "x",
-            "type": "Open"
-          },
-          {
-            "id": "*",
-            "type": "Open_"
+            "type": "In_",
+            "children": [{
+              "id": "x",
+              "type": "Open",
+              "children": [{
+                "id": "*",
+                "type": "Open_"
+              }]
+            }]
           }
         ],
         "type": "Serial"
@@ -28,13 +28,12 @@
             "children": [
               {
                 "id": "func",
-                "type": "In"
-              },
-              {
-                "id": "*",
-                "type": "Open_"
-              }
-            ],
+                "type": "In",
+                "children": [{
+                  "id": "*",
+                  "type": "Open_"
+                }]
+              }],
             "type": "Serial"
           },
           {
