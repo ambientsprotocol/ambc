@@ -77,9 +77,9 @@ The JSON AST is intentionally and exceedingly simple. It a recursive structure o
 2. `id`: _Optional_ - a string identifier
 3. `children` _Optional_ - array of more child nodes
 
-Note that things like types and the `func` primitive are not given any special treatment yet.
+The idea here is that it is the simplest possible encoding that does not lose any of the data presented in the original ASCII syntax. Once the tree is generated it can be stored as a DAG on any compatible store. In development we simply use the in-memory structures to work with, but in practice we will likely use IPFS or IPLD.
 
-From there, it's as simple as `ipfs add` or `ipfs dag put`. The hash from that operation is what will be stored and passed along to the execution engine to be run on a distributed, peer to peer network.
+Finally, `ambc` should return a [multihash](https://github.com/multiformats/multihash) from that operation. This hash will be used by the execution engine to run the code on a distributed, peer to peer network.
 
 ## Install
 
