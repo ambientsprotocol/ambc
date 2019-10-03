@@ -10,7 +10,7 @@
             },
             {
               "id": "c",
-              "type": "Noop"
+              "type": "Ambient"
             }
           ],
           "type": "Parallel"

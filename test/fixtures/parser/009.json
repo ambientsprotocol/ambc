@@ -43,7 +43,7 @@
           },
           {
             "id": "input",
-            "type": "Noop"
+            "type": "Ambient"
           }
         ],
         "type": "Parallel"

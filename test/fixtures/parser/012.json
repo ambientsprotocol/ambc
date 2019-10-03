@@ -9,7 +9,7 @@
               {"type":"In","id":"y"},
               {"type":"Open_","id":"*"}
             ]},
-            {"type":"Noop","id":"payload"}
+            {"type":"Ambient","id":"payload"}
           ]}
         ]},
         {"type":"Out_","id":"call"}

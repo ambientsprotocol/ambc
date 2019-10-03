@@ -176,7 +176,7 @@ function peg$parse(input, options) {
       peg$c10 = function(ex) { return { type: "Group", children: [ex] }; },
       peg$c11 = "[]",
       peg$c12 = peg$literalExpectation("[]", false),
-      peg$c13 = function(path) { return { "type": "Noop", id: path.trim() }; },
+      peg$c13 = function(path) { return { "type": "Ambient", id: path.trim() }; },
       peg$c14 = "[",
       peg$c15 = peg$literalExpectation("[", false),
       peg$c16 = "]",

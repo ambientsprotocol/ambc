@@ -16,7 +16,7 @@
               {"type":"Open_","id":"*"}
             ]},
             {"type":"Ambient","id":"string","children":[
-              {"type":"Noop","id":"hello"}
+              {"type":"Ambient","id":"hello"}
             ]}
           ]}
         ]}

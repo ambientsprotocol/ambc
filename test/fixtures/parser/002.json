@@ -3,14 +3,14 @@
     {
       "children": [{
         "id": "b",
-        "type": "Noop"
+        "type": "Ambient"
       }],
       "id": "a",
       "type": "Ambient"
     },
     {
       "id": "c",
-      "type": "Noop"
+      "type": "Ambient"
     }
   ],
   "type": "Parallel"
