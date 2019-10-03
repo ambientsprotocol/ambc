@@ -1,6 +1,6 @@
 # Ambients Protocol Compiler _(ambc)_
 
-> Compile your code into something that "speaks" Ambients
+> Ambient Syntax `a[]` to JSON represntation `{ "type": "Ambient", "id": "a", "children": [] }`
 
 ## Background
 
