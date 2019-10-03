@@ -116,4 +116,4 @@ To edit the parser syntax, edit the grammar at `src/parser/ambients.pegjs` and t
 
 # License
 
-MIT
+[MIT](LICENSE) © Haja Networks Oy
