@@ -29,14 +29,14 @@ SubExecution
     / ThirdTier
 
 ThirdTier
-  = "(" _ ex:Execution _ ")" { return { type: "Group", ex: ex }; }
+  = "(" _ ex:Execution _ ")" { return { type: "Group", children: [ex] }; }
   / AMBIENT
   / PATH
 
 AMBIENT
   = path:PATH "[]" { return { "type": "Noop", id: path.trim() }; }
   / path:PATH "[" _ ex:Execution _ "]" {
-      return { type: "Ambient", id: path.trim(), children: ex };
+      return { type: "Ambient", id: path.trim(), children: [ex] };
   }
 
 CAPABILITY

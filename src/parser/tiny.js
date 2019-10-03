@@ -174,7 +174,7 @@ function peg$parse(input, options) {
         peg$literalExpectation("(", false),
         ")",
         peg$literalExpectation(")", false),
-        function(ex) { return { type: "Group", ex: ex }; },
+        function(ex) { return { type: "Group", children: [ex] }; },
         "[]",
         peg$literalExpectation("[]", false),
         function(path) { return { "type": "Noop", id: path.trim() }; },
@@ -183,7 +183,7 @@ function peg$parse(input, options) {
         "]",
         peg$literalExpectation("]", false),
         function(path, ex) {
-              return { type: "Ambient", id: path.trim(), children: ex };
+              return { type: "Ambient", id: path.trim(), children: [ex] };
           },
         "in_",
         peg$literalExpectation("in_", false),

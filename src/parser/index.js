@@ -173,7 +173,7 @@ function peg$parse(input, options) {
       peg$c7 = peg$literalExpectation("(", false),
       peg$c8 = ")",
       peg$c9 = peg$literalExpectation(")", false),
-      peg$c10 = function(ex) { return { type: "Group", ex: ex }; },
+      peg$c10 = function(ex) { return { type: "Group", children: [ex] }; },
       peg$c11 = "[]",
       peg$c12 = peg$literalExpectation("[]", false),
       peg$c13 = function(path) { return { "type": "Noop", id: path.trim() }; },
@@ -182,7 +182,7 @@ function peg$parse(input, options) {
       peg$c16 = "]",
       peg$c17 = peg$literalExpectation("]", false),
       peg$c18 = function(path, ex) {
-            return { type: "Ambient", id: path.trim(), children: ex };
+            return { type: "Ambient", id: path.trim(), children: [ex] };
         },
       peg$c19 = "in_",
       peg$c20 = peg$literalExpectation("in_", false),
