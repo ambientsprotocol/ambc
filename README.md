@@ -8,12 +8,12 @@
 
 The protocol also includes guarantees as to the verfiability and safety of the code, all without a blockchain.
 
-## Description
-
 A working implementation of the Ambients protocol has two main functions:
 
 1. Compile source language code into "byecode" DAG, and store it in a distributed, peer-to-peer network.
 2. Retrieve the DAG from said network and safely + verfiably execute the code.
+
+## Description
 
 This code covers the first part: the compiler. This is covered in great detail in [Chapter 6 of the Ambients Whitepaper](https://github.com/ambientsprotocol/whitepaper/blob/master/06-compilation-model.md)
 
