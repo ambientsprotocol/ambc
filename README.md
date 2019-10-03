@@ -41,7 +41,8 @@ open func
 
 #### Supported source languages
 
-- JavaScript (WIP) [Using Esprima AST](https://github.com/aphelionz/ambients.js/blob/master/src/fromjs/index.js)
+- Ambients Syntax
+- [JavaScript (WIP)](https://github.com/aphelionz/js2amb)
 
 If you think you know a particular language (Ruby, C#, etc) _really_ well and want to get your head around Ambients,
 this is a great place to start contributing. It's even just a great way of testing your understanding.
