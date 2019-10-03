@@ -31,7 +31,7 @@ The code in this repository deals _only_ with step 2 above, and relies on extern
 () => "hello"
 ```
 ### ⬇
-```
+```text
 func[
   open_|
   string[hello[]]
@@ -48,7 +48,7 @@ this is a great place to start contributing. It's even just a great way of testi
 
 ### Step 2: Ambients Syntax to preliminary Abstract Syntax Tree (AST)
 
-```
+```text
 func[
   open_|
   string[hello[]]
