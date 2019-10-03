@@ -1,8 +1,8 @@
 {
-  "children": {
+  "children": [{
     "children": [
       {
-        "children": {
+        "children": [{
           "children": [
             {
               "id": "*",
@@ -14,7 +14,7 @@
             }
           ],
           "type": "Parallel"
-        },
+        }],
         "id": "b",
         "type": "Ambient"
       },
@@ -24,7 +24,7 @@
       }
     ],
     "type": "Parallel"
-  },
+  }],
   "id": "a",
   "type": "Ambient"
 }

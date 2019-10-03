@@ -1,18 +1,18 @@
 {
   "children": [
     {
-      "children": {
+      "children": [{
         "id": "b",
         "type": "In"
-      },
+      }],
       "id": "a",
       "type": "Ambient"
     },
     {
-      "children": {
+      "children": [{
         "id": "a",
         "type": "In_"
-      },
+      }],
       "id": "b",
       "type": "Ambient"
     }

@@ -1,7 +1,7 @@
 {
   "children": [
     {
-      "children": {
+      "children": [{
         "children": [
           {
             "id": "b",
@@ -13,12 +13,12 @@
           }
         ],
         "type": "Parallel"
-      },
+      }],
       "id": "a",
       "type": "Ambient"
     },
     {
-      "children": {
+      "children": [{
         "children": [
           {
             "id": "b",
@@ -30,20 +30,19 @@
           }
         ],
         "type": "Parallel"
-      },
+      }],
       "id": "a",
       "type": "Ambient"
     },
     {
-      "children": {
+      "children": [{
         "id": "a",
         "type": "In_"
-      },
+      }],
       "id": "b",
       "type": "Ambient"
     }
-  ],
+   ],
   "type": "Parallel"
 }
-
 

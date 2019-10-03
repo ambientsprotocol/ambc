@@ -1,1 +1,25 @@
-{"type":"Parallel","children":[{"type":"Ambient","id":"x","children":{"type":"Parallel","children":[{"type":"Ambient","id":"call","children":{"type":"Parallel","children":[{"type":"Serial","children":[{"type":"Out","id":"x"},{"type":"In","id":"y"},{"type":"Open_","id":"*"}]},{"type":"Noop","id":"payload"}]}},{"type":"Out_","id":"call"}]}},{"type":"Ambient","id":"y","children":{"type":"Serial","children":[{"type":"In_","id":"call"},{"type":"Open","id":"call"}]}}]}
+{
+  "type":"Parallel","children":[
+    {"type":"Ambient","id":"x","children":[
+      {"type":"Parallel","children":[
+        {"type":"Ambient","id":"call","children":[
+          {"type":"Parallel","children":[
+            {"type":"Serial","children":[
+              {"type":"Out","id":"x"},
+              {"type":"In","id":"y"},
+              {"type":"Open_","id":"*"}
+            ]},
+            {"type":"Noop","id":"payload"}
+          ]}
+        ]},
+        {"type":"Out_","id":"call"}
+      ]}
+    ]},
+    {"type":"Ambient","id":"y","children":[
+      {"type":"Serial","children":[
+        {"type":"In_","id":"call"},
+        {"type":"Open","id":"call"}
+      ]}
+    ]}
+  ]
+}

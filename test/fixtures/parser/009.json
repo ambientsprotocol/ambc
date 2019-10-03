@@ -1,7 +1,7 @@
 {
   "children": [
     {
-      "children": {
+      "children": [{
         "children": [
           {
             "id": "x",
@@ -21,12 +21,12 @@
           }
         ],
         "type": "Serial"
-      },
+      }],
       "id": "arg",
       "type": "Ambient"
     },
     {
-      "children": {
+      "children": [{
         "children": [
           {
             "children": [
@@ -47,12 +47,12 @@
           }
         ],
         "type": "Parallel"
-      },
+      }],
       "id": "x",
       "type": "Ambient"
     },
     {
-      "children": {
+      "children": [{
         "children": [
           {
             "id": "arg",
@@ -72,12 +72,12 @@
           }
         ],
         "type": "Serial"
-      },
+      }],
       "id": "y",
       "type": "Ambient"
     },
     {
-      "children": {
+      "children": [{
         "children": [
           {
             "id": "y",
@@ -93,7 +93,7 @@
           }
         ],
         "type": "Serial"
-      },
+      }],
       "id": "func",
       "type": "Ambient"
     }

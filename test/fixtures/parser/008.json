@@ -1,7 +1,7 @@
 {
   "children": [
     {
-      "children": {
+      "children": [{
         "children": [
           {
             "id": "x",
@@ -17,12 +17,12 @@
           }
         ],
         "type": "Serial"
-      },
+      }],
       "id": "func",
       "type": "Ambient"
     },
     {
-      "children": {
+      "children": [{
         "children": [
           {
             "children": [
@@ -43,7 +43,7 @@
           }
         ],
         "type": "Parallel"
-      },
+      }],
       "id": "x",
       "type": "Ambient"
     },

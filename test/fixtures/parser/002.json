@@ -1,10 +1,10 @@
 {
   "children": [
     {
-      "children": {
+      "children": [{
         "id": "b",
         "type": "Noop"
-      },
+      }],
       "id": "a",
       "type": "Ambient"
     },
