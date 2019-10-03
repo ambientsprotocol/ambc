@@ -1,9 +1,0 @@
-b[
-  in_ call.open call.(
-    string[hello[]]|
-    open return.open_
-  )
-]|
-call[in b.open_.return[open_.in func]]|
-func[in_ b.open b.open_]|
-open func
