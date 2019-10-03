@@ -62,6 +62,12 @@ open func
 ] }
 ```
 
+The JSON AST is intentionally and exceedingly simple. It a recursive structure of nodes that has three fields:
+
+1. `type`: **Required** - the type of the ambient, enum as string
+2. `id`: _Optional_ - a string identifier
+3. `children` _Optional_ - array of more child nodes
+
 Note that things like types and the `func` primitive are not given any special treatment yet.
 
 ### [WIP] Stage 2: AST to Ambient Primitives
