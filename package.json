@@ -11,8 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mocha": "^6.2.1",
     "pegjs": "^0.10.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.1"
   },
   "standard": {
     "env": "mocha"
