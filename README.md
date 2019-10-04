@@ -30,11 +30,9 @@ From the [Ambients whitepaper](https://github.com/ambientsprotocol/whitepaper/bl
 
 > 1. compile original source code to an intermediate abstract syntax structure (usually as in Abstract Syntax Tree)
 > 2. translate the intermediate structure to the computation primitives, distribution primitives and computation abstractions of the Ambients protocol
-> 3generate the bytecode executable from the primitives
+> 3. generate the bytecode executable from the primitives
 
-This code covers the first part: the compiler. This is covered in great detail in [Chapter 6 of the Ambients Whitepaper](https://github.com/ambientsprotocol/whitepaper/blob/master/06-compilation-model.md)
-
-`ambc` functions by first detecting the type of input file and then performing the parsing necessary to compile it down to an _abstract syntax tree_ (AST).
+`ambc` satisfies requirement #1 by compiling ambients syntax, and JavaScript into an [Abstract Syntax Tree](#abstract-syntax-tree-format). Since this is a lossless encoding, downstream components in the overall system can satisfy requirements #2 and #3 as required.
 
 ### Compiler steps
 
