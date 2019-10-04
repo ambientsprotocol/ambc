@@ -159,10 +159,11 @@ function peg$parse(input, options) {
       peg$c4 = peg$literalExpectation(".", false),
       peg$c5 = function(head, tail) {
               tail = tail.map(t => t[1])
-              while(tail.length > 1) {
-                tail[tail.length - 2].children = [tail[tail.length - 1]]
-                tail.pop()
-              }
+              tail = (function tree (t) {
+                return t.length > 1
+                  ? [{ ...t[0], children: tree(t.slice(1)) }]
+                  : t
+              })(tail)
               head.children = tail
 
               return {
