@@ -2,14 +2,17 @@
 
 > Ambient Syntax `a[]` to JSON represntation `{ "type": "Ambient", "id": "a", "children": [] }`
 
-## Table of Content
+## Table of contents
 
-- [Background](#Background)
-- [Description](#Description)
-- [Install](#Install)
-- [Usage](#Usage)
-- [Contributing](#Contributing)
-- [License](#License)
+- [Background](#background)
+- [Description](#description)
+    - [Compiler steps](#compiler-steps)
+    - [Supported source languages](#supported-source-languages)
+    - [Abstract syntax tree format](#abstract-syntax-tree-format)
+- [Install](#install)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Background
 
@@ -28,13 +31,16 @@ This code covers the first part: the compiler. This is covered in great detail i
 
 `ambc` functions by first detecting the type of input file and then performing the parsing necessary to compile it down to an _abstract syntax tree_ (AST).
 
-The compiler steps are as follows:
-1. Input source code from your desired language (currently JavaScript) and compile to Ambient ASCII syntax as an intermediate representation.
-2. Parse ASCII syntax into a JSON AST and output.
+### Compiler steps
+
+The compiler is very simple, and has only two primary steps:
+
+1. Compile source code from your desired language (currently JavaScript) to Ambient ASCII syntax
+2. Parse ASCII syntax and output a JSON directed-acyclic-graph (DAG) AST.
 
 The code in this repository deals _only_ with step 2 above, and relies on external dependencies like `js2amp` for step 1.
 
-### Step 1: Source code -> Ambients syntax
+#### Step 1: Source code -> Ambients syntax
 
 ```JavaScript
 () => "hello"
@@ -48,15 +54,7 @@ func[
 open func
 ```
 
-#### Supported source languages
-
-- Ambients Syntax
-- [JavaScript (WIP)](https://github.com/aphelionz/js2amb)
-
-If you think you know a particular language (Ruby, C#, etc) _really_ well and want to get your head around Ambients,
-this is a great place to start contributing. It's even just a great way of testing your understanding.
-
-### Step 2: Ambients Syntax to preliminary Abstract Syntax Tree (AST)
+#### Step 2: Ambients Syntax to preliminary Abstract Syntax Tree (AST)
 
 ```text
 func[
@@ -65,7 +63,7 @@ func[
 ]|
 open func
 ```
-### ⬇
+⬇
 ```json
 { "type": "Parallel", "children": [
   { "type": "Ambient", "id": "func", "children":[
@@ -80,7 +78,15 @@ open func
 ] }
 ```
 
-### Abstract Syntax Tree Format
+### Supported source languages
+
+- Ambients Syntax
+- [JavaScript (WIP)](https://github.com/aphelionz/js2amb)
+
+If you think you know a particular language (Ruby, C#, etc) _really_ well and want to get your head around Ambients,
+this is a great place to start contributing. It's even just a great way of testing your understanding.
+
+### Abstract syntax tree format
 
 The JSON AST is intentionally and exceedingly simple. It a recursive structure of nodes that has three fields:
 
