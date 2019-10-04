@@ -1,0 +1,1 @@
+{"name":"","children":[{"name":"x","children":[{"name":"call","children":[{"name":"payload","children":[],"capabilities":[],"create":[]}],"capabilities":["out x","in y","open_"],"create":[]}],"capabilities":["out_ call"],"create":[]},{"name":"y","children":[],"capabilities":["in_ call","open call"],"create":[]}],"capabilities":[],"create":[]}

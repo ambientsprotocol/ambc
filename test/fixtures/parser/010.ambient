@@ -1,0 +1,8 @@
+message[
+  in func.open_|
+  func[
+    x[in_ arg.open arg.in message.open_]|
+    message[in_ x.open x]|
+    in_ arg.open_
+  ]
+]

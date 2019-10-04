@@ -1,0 +1,1 @@
+{"name":"","children":[{"name":"func","children":[{"name":"arg","children":[{"name":"string","children":[{"name":"hello","children":[],"capabilities":[],"create":[]}],"capabilities":[],"create":[]}],"capabilities":["in func","in x","open_"],"create":[]}],"capabilities":["in_ message","open message","open func","open_"],"create":[]}],"capabilities":["open func"],"create":[]}

@@ -1,0 +1,1 @@
+{"name":"","children":[{"name":"func","children":[],"capabilities":["in_ x","open x","open_"],"create":[]},{"name":"x","children":[{"name":"result","children":[],"capabilities":[],"create":[]}],"capabilities":["in func","open_"],"create":[]}],"capabilities":["open func"],"create":[]}

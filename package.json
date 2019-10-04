@@ -5,12 +5,13 @@
   "main": "src/index.js",
   "scripts": {
     "test": "make test",
-    "build:parser": "pegjs -o src/index.js src/ambients.pegjs",
-    "build:parser:tiny": "pegjs --optimize size -o src/tiny.js src/ambients.pegjs"
+    "build:parser": "pegjs -o src/ir/index.js src/ir/ambients.pegjs",
+    "build:parser:tiny": "pegjs --optimize size -o src/ir/tiny.js src/ir/ambients.pegjs"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "flex-js": "^1.0.5",
     "js2amb": "aphelionz/js2amb#master",
     "mime-types": "^2.1.24",
     "pegjs": "^0.10.0",

@@ -1,0 +1,2 @@
+x[call[out x.in y.open_|payload[]] | out_ call] |
+  y[in_ call.open call]
