@@ -2,6 +2,15 @@
 
 > Ambient Syntax `a[]` to JSON represntation `{ "type": "Ambient", "id": "a", "children": [] }`
 
+## Table of Content
+
+- [Background](#Background)
+- [Description](#Description)
+- [Install](#Install)
+- [Usage](#Usage)
+- [Contributing](#Contributing)
+- [License](#License)
+
 ## Background
 
 [Ambients](https://ambients.org) is a protocol for distributed computation. It allows you to request and execute computation as easily as you can data inside OrbitDB. Think of it like AWS Lambda or Azure Cloud functions, but on a decentralized peer-to-peer network.
@@ -30,7 +39,7 @@ The code in this repository deals _only_ with step 2 above, and relies on extern
 ```JavaScript
 () => "hello"
 ```
-### ⬇
+⬇
 ```text
 func[
   open_|
@@ -70,6 +79,8 @@ open func
   { "type": "Open", "id": "func" }
 ] }
 ```
+
+### Abstract Syntax Tree Format
 
 The JSON AST is intentionally and exceedingly simple. It a recursive structure of nodes that has three fields:
 
