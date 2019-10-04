@@ -3,17 +3,22 @@
     {"type":"Ambient","id":"func","children":[
       {"type":"Parallel","children":[
         {"type":"Serial","children":[
-          {"type":"In_","id":"message"},
-          {"type":"Open","id":"message"},
-          {"type":"Open","id":"func"},
-          {"type":"Open_","id":"*"}
+          {"type":"In_","id":"message", "children": [
+            {"type":"Open","id":"message", "children": [
+              {"type":"Open","id":"func", "children": [
+                {"type":"Open_","id":"*"}
+              ]}
+            ]}
+          ]}
         ]},
         {"type":"Ambient","id":"arg","children":[
           {"type":"Parallel","children":[
             {"type":"Serial","children":[
-              {"type":"In","id":"func"},
-              {"type":"In","id":"x"},
-              {"type":"Open_","id":"*"}
+              {"type":"In","id":"func", "children": [
+                {"type":"In","id":"x", "children": [
+                  {"type":"Open_","id":"*"}
+                ]}
+              ]}
             ]},
             {"type":"Ambient","id":"string","children":[
               {"type":"Ambient","id":"hello"}

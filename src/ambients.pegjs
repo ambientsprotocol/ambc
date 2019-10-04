@@ -15,15 +15,16 @@ Execution
 
 SubExecution
   = head:ThirdTier tail:((".") ThirdTier)+ {
+        tail = tail.map(t => t[1])
+        while(tail.length > 1) {
+          tail[tail.length - 2].children = [tail[tail.length - 1]]
+          tail.pop()
+        }
+        head.children = tail
+
         return {
             type: "Serial",
-            children: tail.reduce((acc, step) => {
-              step.map((s) => {
-                if (typeof(s) === "string") return;
-                acc.push(s)
-              })
-              return acc
-            }, [head])
+            children: [head]
         }
     }
     / ThirdTier

@@ -5,19 +5,19 @@
         "children": [
           {
             "id": "x",
-            "type": "In_"
-          },
-          {
-            "id": "x",
-            "type": "Open"
-          },
-          {
-            "id": "y",
-            "type": "In"
-          },
-          {
-            "id": "*",
-            "type": "Open_"
+            "type": "In_",
+            "children": [{
+              "id": "x",
+              "type": "Open",
+              "children": [{
+                "id": "y",
+                "type": "In",
+                "children": [{
+                  "id": "*",
+                  "type": "Open_"
+                }]
+              }]
+            }]
           }
         ],
         "type": "Serial"
@@ -32,11 +32,11 @@
             "children": [
               {
                 "id": "arg",
-                "type": "In"
-              },
-              {
-                "id": "*",
-                "type": "Open_"
+                "type": "In",
+                "children": [{
+                  "id": "*",
+                  "type": "Open_"
+                }]
               }
             ],
             "type": "Serial"
@@ -56,19 +56,19 @@
         "children": [
           {
             "id": "arg",
-            "type": "In_"
-          },
-          {
-            "id": "arg",
-            "type": "Open"
-          },
-          {
-            "id": "func",
-            "type": "In"
-          },
-          {
-            "id": "*",
-            "type": "Open_"
+            "type": "In_",
+            "children": [{
+              "id": "arg",
+              "type": "Open",
+              "children": [{
+                "id": "func",
+                "type": "In",
+                "children": [{
+                  "id": "*",
+                  "type": "Open_"
+                }]
+              }]
+            }]
           }
         ],
         "type": "Serial"
@@ -81,15 +81,15 @@
         "children": [
           {
             "id": "y",
-            "type": "In_"
-          },
-          {
-            "id": "y",
-            "type": "Open"
-          },
-          {
-            "id": "*",
-            "type": "Open_"
+            "type": "In_",
+            "children": [{
+              "id": "y",
+              "type": "Open",
+              "children": [{
+                "id": "*",
+                "type": "Open_"
+              }]
+            }]
           }
         ],
         "type": "Serial"

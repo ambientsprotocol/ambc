@@ -5,9 +5,11 @@
         {"type":"Ambient","id":"call","children":[
           {"type":"Parallel","children":[
             {"type":"Serial","children":[
-              {"type":"Out","id":"x"},
-              {"type":"In","id":"y"},
-              {"type":"Open_","id":"*"}
+              {"type":"Out","id":"x", "children": [
+                {"type":"In","id":"y", "children": [
+                  {"type":"Open_","id":"*"}
+                ]}
+              ]}
             ]},
             {"type":"Ambient","id":"payload"}
           ]}
@@ -17,8 +19,9 @@
     ]},
     {"type":"Ambient","id":"y","children":[
       {"type":"Serial","children":[
-        {"type":"In_","id":"call"},
-        {"type":"Open","id":"call"}
+        {"type":"In_","id":"call", "children": [
+          {"type":"Open","id":"call"}
+        ]}
       ]}
     ]}
   ]

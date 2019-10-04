@@ -21,17 +21,16 @@
        "children": [
          {
            "id": "a",
-           "type": "In_"
-         },
-         {
-           "id": "b",
-           "type": "In_"
-         },
-         {
-           "id": "d",
-           "type": "In"
-         }
-        ],
+           "type": "In_",
+           "children": [{
+             "id": "b",
+             "type": "In_",
+             "children": [{
+               "id": "d",
+               "type": "In"
+             }]
+           }]
+         }],
        "type": "Serial"
      }],
      "id": "c",
