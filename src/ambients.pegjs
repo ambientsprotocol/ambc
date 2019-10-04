@@ -16,13 +16,11 @@ Execution
 SubExecution
   = head:ThirdTier tail:((".") ThirdTier)+ {
         tail = tail.map(t => t[1])
-        tail = tail.reduce(( a, c, i) => [{
-          ...(
-            tail.length > i + 1
-              ? { ...c, children: [tail[i+1]] }
-              : { ...c }
-          )
-        }], [])
+        tail = (function tree (t) {
+          return t.length > 1
+            ? [{ ...t[0], children: tree(t.slice(1)) }]
+            : t
+        })(tail)
         head.children = tail
 
         return {
