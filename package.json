@@ -4,7 +4,7 @@
   "description": "Compiles source code to Ambients protocol syntax",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "make test",
     "build:parser": "pegjs -o src/index.js src/ambients.pegjs",
     "build:parser:tiny": "pegjs --optimize size -o src/tiny.js src/ambients.pegjs"
   },
