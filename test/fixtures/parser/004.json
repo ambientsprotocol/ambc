@@ -1,1 +1,1 @@
-{"name":"","children":[{"name":"b","children":[{"name":"a","children":[],"capabilities":["out b"],"create":[]}],"capabilities":["out_ a"],"create":[]}],"capabilities":[],"create":[]}
+{"name":"","children":[{"name":"b","children":[{"name":"a","children":[],"capabilities":[{"op":"out","target":"b","next":null}],"create":[]}],"capabilities":[{"op":"out_","target":"a","next":null}],"create":[]}],"capabilities":[],"create":[]}

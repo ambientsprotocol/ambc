@@ -1,1 +1,1 @@
-{"name":"","children":[{"name":"a","children":[{"name":"b","children":[{"name":"c","children":[],"capabilities":[],"create":[]}],"capabilities":["open_"],"create":[]}],"capabilities":["open b"],"create":[]}],"capabilities":[],"create":[]}
+{"name":"","children":[{"name":"a","children":[{"name":"b","children":[{"name":"c","children":[],"capabilities":[],"create":[]}],"capabilities":[{"op":"open_","target":"","next":null}],"create":[]}],"capabilities":[{"op":"open","target":"b","next":null}],"create":[]}],"capabilities":[],"create":[]}

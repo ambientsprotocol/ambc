@@ -1,1 +1,23 @@
-{"name":"","children":[{"name":"a","children":[],"capabilities":["in b"],"create":[]},{"name":"b","children":[],"capabilities":["in_ a"],"create":[]}],"capabilities":[],"create":[]}
+{
+  "name":"",
+  "children":[
+    {
+      "name":"a",
+      "children":[],
+      "capabilities":[
+        {"op": "in", "target": "b", "next": null }
+      ],
+      "create":[]
+    },
+    {
+      "name":"b",
+      "children":[],
+      "capabilities":[
+        { "op": "in_", "target": "a", "next": null }
+      ],
+      "create":[]
+    }
+  ],
+  "capabilities":[],
+  "create":[]
+}
