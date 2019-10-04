@@ -1,1 +1,8 @@
-{"name":"","children":[{"name":"a","children":[],"capabilities":[],"create":[]}],"capabilities":[],"create":[]}
+{
+  "name":"",
+  "children":[
+    {"name":"a","children":[],"capabilities":[],"create":[]}
+  ],
+  "capabilities":[],
+  "create":[]
+}
