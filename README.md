@@ -20,12 +20,17 @@
 
 The protocol also includes guarantees as to the verfiability and safety of the code, all without a blockchain.
 
-A working implementation of the Ambients protocol has two main functions:
-
-1. Compile source language code into "byecode" DAG, and store it in a distributed, peer-to-peer network.
-2. Retrieve the DAG from said network and safely + verfiably execute the code.
-
 ## Description
+
+From the [Ambients whitepaper](https://github.com/ambientsprotocol/whitepaper/blob/master/06-compilation-model.md#translating-ambients-programs):
+
+> The Ambients protocol overall is programming language-agnostic. That means almost any programming language can be used to write distributed programs, as long as there's a compiler that can process the source language and turn it into the Ambients bytecode. While most common programming languages can be used, due to the protocol primitives, functions and types, functional languages are especially well-suited to write distributed programs.
+
+> Compilation model requires all compilers to:
+
+> 1. compile original source code to an intermediate abstract syntax structure (usually as in Abstract Syntax Tree)
+> 2. translate the intermediate structure to the computation primitives, distribution primitives and computation abstractions of the Ambients protocol
+> 3generate the bytecode executable from the primitives
 
 This code covers the first part: the compiler. This is covered in great detail in [Chapter 6 of the Ambients Whitepaper](https://github.com/ambientsprotocol/whitepaper/blob/master/06-compilation-model.md)
 
@@ -35,12 +40,9 @@ This code covers the first part: the compiler. This is covered in great detail i
 
 The compiler is very simple, and has only two primary steps:
 
-1. Compile source code from your desired language (currently JavaScript) to Ambient ASCII syntax
-2. Parse ASCII syntax and output a JSON directed-acyclic-graph (DAG) AST.
-
-The code in this repository deals _only_ with step 2 above, and relies on external dependencies like `js2amp` for step 1.
-
 #### Step 1: Source code -> Ambients syntax
+
+Compile source code from JavaScript (other languages TBD) to Ambient ASCII syntax. For example:
 
 ```JavaScript
 () => "hello"
@@ -55,6 +57,8 @@ open func
 ```
 
 #### Step 2: Ambients Syntax to preliminary Abstract Syntax Tree (AST)
+
+Parse ASCII syntax and output a JSON directed-acyclic-graph (DAG) AST.
 
 ```text
 func[
@@ -81,16 +85,22 @@ open func
 ### Supported source languages
 
 - Ambients Syntax
-- [JavaScript (WIP)](https://github.com/aphelionz/js2amb)
-
-If you think you know a particular language (Ruby, C#, etc) _really_ well and want to get your head around Ambients,
-this is a great place to start contributing. It's even just a great way of testing your understanding.
+- [JavaScript](https://github.com/aphelionz/js2amb) (WIP)
 
 ### Abstract syntax tree format
 
 The JSON AST is intentionally and exceedingly simple. It a recursive structure of nodes that has three fields:
 
-1. `type`: **Required** - the type of the ambient, enum as string
+1. `type`: **Required** - the type of the ambient, enum as string. Can be one of:
+   - Parallel
+   - Serial
+   - Group
+   - Ambient
+   - In_
+   - In
+   - Out_
+   - Open
+   - Open_
 2. `id`: _Optional_ - a string identifier
 3. `children` _Optional_ - array of more child nodes
 
