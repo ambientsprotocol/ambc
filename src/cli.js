@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const argv = require('yargs')
-  .usage('$0 <input> [options]', 'Compile source code to ambient ', (yargs) => {
+  .usage('$0 <input> [options]', 'Compile source code to ambient syntax or JSON AST', (yargs) => {
     yargs
       .positional('input', {
         describe: 'Path to the source code file you want to compile'
