@@ -11,6 +11,7 @@ const parse = (input) => {
   let blockParent = null
   let parentOp = null
   let createMode = false
+  let createMode2 = false
 
   const ambientToString = (a) => {
     return a.next.map((e, i) => {
@@ -40,7 +41,7 @@ const parse = (input) => {
 
   const createNext = (lexer) => {
     const [op, target] = lexer.text.split(" ")
-    console.log("", " ".repeat(depth), "op!", "op:", op, ", target:", target || "")
+    // console.log("", " ".repeat(depth), "op!", "op:", op, ", target:", target || "")
     if (curOp) {
       // curOp.next.push({op, target: target || "", next: []})
       curOp.next = {op, target: target || "", next: null}
@@ -72,12 +73,13 @@ const parse = (input) => {
     // console.log(">>", JSON.stringify(ambient, null, 2))
     const prev = ambient.prev
     delete ambient.prev
-    if (createMode)
+    if (createMode2)
       prev.create.push(ambient)
     else
       prev.children.push(ambient)
     ambient = prev
     createMode = false
+    createMode2 = false
   })
 
   lexer.addRule('(', lexer => {
@@ -110,11 +112,11 @@ const parse = (input) => {
   })
 
   lexer.addRule(/\.\w+\b\[/, lexer => {
-    console.log("FOUND!", lexer.text)
+    // console.log("FOUND!", lexer.text)
     let op = {op: "create", target: "", next: null}
     curOp.next = op
     curOp = null
-    createMode = true
+    createMode2 = true
     // ambient.capabilities.push(op)
     let nested = {name: lexer.text.replace('.', '').replace('[', ''), children: [], capabilities: [], create: []}
     // ambient.children.push(nested)
