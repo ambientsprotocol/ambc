@@ -16,10 +16,13 @@ Execution
 SubExecution
   = head:ThirdTier tail:((".") ThirdTier)+ {
         tail = tail.map(t => t[1])
-        while(tail.length > 1) {
-          tail[tail.length - 2].children = [tail[tail.length - 1]]
-          tail.pop()
-        }
+        tail = tail.reduce(( a, c, i) => [{
+          ...(
+            tail.length > i + 1
+              ? { ...c, children: [tail[i+1]] }
+              : { ...c }
+          )
+        }], [])
         head.children = tail
 
         return {
