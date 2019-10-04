@@ -6,13 +6,13 @@
 
 - [Background](#background)
 - [Description](#description)
-    - [Compiler steps](#compiler-steps)
     - [Supported source languages](#supported-source-languages)
-    - [Abstract syntax tree format](#abstract-syntax-tree-format)
+    - [Compiler steps](#compiler-steps)
+    - [Intermediate abstract syntax tree format](#intermediate-abstract-syntax-tree-format)
 - [Install](#install)
 - [Usage](#usage)
     - [Via the command line](#via-the-command-line)
-    - [In Code](#in-code)
+    - [In code](#in-code)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -34,15 +34,25 @@ From the [Ambients whitepaper](https://github.com/ambientsprotocol/whitepaper/bl
 > 2. translate the intermediate structure to the computation primitives, distribution primitives and computation abstractions of the Ambients protocol
 > 3. generate the bytecode executable from the primitives
 
-`ambc` satisfies requirement #1 by compiling ambients syntax, and JavaScript into an [Abstract Syntax Tree](#abstract-syntax-tree-format). Since this is a lossless encoding, downstream components in the overall system can satisfy requirements #2 and #3 as required.
+`ambc` satisfies requirements #1 and #2 by compiling ambients syntax, and JavaScript into either an intermeidate representation or final [Abstract Syntax Tree](#abstract-syntax-tree-format).
+
+Both ASTs are lossless encodings, meaning that no data is lost from the ambient syntax and by-proxy the original JS code. Downstream components in the overall system can satisfy requirement #3 as required.
+
+### Supported source languages
+
+- Ambients Syntax
+- [JavaScript](https://github.com/aphelionz/js2amb) (WIP)
 
 ### Compiler steps
 
-The compiler is very simple, and has only two primary steps:
+The compiler is very simple, and has only two primary steps, the second of which has two different types of output (IR vs final)
 
 #### Step 1: Source code -> Ambients syntax
 
-Compile source code from JavaScript (other languages TBD) to Ambient ASCII syntax. For example:
+Compile source code from JavaScript (other languages TBD) to Ambient ASCII syntax. Users can choose to output ambient syntax by passing the `--format ambient` option to `ambc`
+
+
+For example:
 
 ```JavaScript
 () => "hello"
@@ -56,9 +66,9 @@ func[
 open func
 ```
 
-#### Step 2: Ambients Syntax to preliminary Abstract Syntax Tree (AST)
+#### Step 2a: Ambients Syntax to intermediate representation (IR) AST
 
-Parse ASCII syntax and output a JSON directed-acyclic-graph (DAG) AST.
+Users can choose to display an IR AST by passing the `--format ir` option to `ambc`.
 
 ```text
 func[
@@ -82,14 +92,24 @@ open func
 ] }
 ```
 
-### Supported source languages
+#### Step 2b: Ambients Syntax to final AST
 
-- Ambients Syntax
-- [JavaScript](https://github.com/aphelionz/js2amb) (WIP)
+This is the default output of the compiler, which encodes protocol primitives into the JSON.
 
-### Abstract syntax tree format
+```text
+func[
+  open_|
+  string[hello[]]
+]|
+open func
+```
+⬇
+```json
+```
 
-The JSON AST is intentionally and exceedingly simple. It a recursive structure of nodes that has three fields:
+### Intermediate abstract syntax tree format
+
+The IR AST exceedingly and intentionally simple. It a recursive structure of nodes that has three fields:
 
 1. `type`: **Required** - the type of the ambient, enum as string. Can be one of:
    - Parallel
@@ -106,7 +126,17 @@ The JSON AST is intentionally and exceedingly simple. It a recursive structure o
 
 The idea here is that it is the simplest possible encoding that does not lose any of the data presented in the original ASCII syntax. Once the tree is generated it can be stored as a DAG on any compatible store. In development we simply use the in-memory structures to work with, but in practice we will likely use IPFS or IPLD.
 
+### Final abstract syntax tree format
+
+The final AST format encodes protocol primitives into the JSON and is more meant for machine consumption. It has the following format:
+
+TODO
+
+### Compiler Output
+
 Finally, `ambc` should return a [multihash](https://github.com/multiformats/multihash) from that operation. This hash will be used by the execution engine to run the code on a distributed, peer to peer network.
+
+This is currently not yet implemented.
 
 ## Install
 
@@ -153,6 +183,13 @@ You can also use `ambc` within your JavaScript code.
 ```JavaScript
 const js2amb = require('js2amb')
 const { irParser, parse } = require('ambc')
+
+const js = '() => "hello"'
+
+js2amb(js)          // Outputs ambient syntax from JS
+irParser.parse(js)  // Outputs intermediate representation AST
+parse(js)           // Outputs final AST
+
 ```
 
 Note that to get ambient syntax from, you will also need `js2amb`.
