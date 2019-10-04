@@ -9,6 +9,7 @@
     - [Supported source languages](#supported-source-languages)
     - [Compiler steps](#compiler-steps)
     - [Intermediate abstract syntax tree format](#intermediate-abstract-syntax-tree-format)
+    - [Final abstract syntax tree format](#final-abstract-syntax-tree-format)
 - [Install](#install)
 - [Usage](#usage)
     - [Via the command line](#via-the-command-line)
@@ -105,13 +106,35 @@ open func
 ```
 ⬇
 ```json
+{
+  "name": "",
+  "children": [],
+  "capabilities": [
+    "in_ call",
+    "open call",
+    "create"
+  ],
+  "create": [
+    {
+      "name": "",
+      "children": [],
+      "capabilities": [
+        "open return",
+        "open_"
+      ],
+      "create": []
+    }
+  ]
+}
 ```
 
 ### Intermediate abstract syntax tree format
 
-The IR AST exceedingly and intentionally simple. It a recursive structure of nodes that has three fields:
+The IR AST exceedingly and intentionally naive. It simply encodes the ambient syntax directly using a recursive structure of nodes.
 
-1. `type`: **Required** - the type of the ambient, enum as string. Can be one of:
+Each node has three fields:
+
+1. `type`: **Required** - the type of the ambient, a string enum which can be one of:
    - Parallel
    - Serial
    - Group
@@ -128,9 +151,15 @@ The idea here is that it is the simplest possible encoding that does not lose an
 
 ### Final abstract syntax tree format
 
-The final AST format encodes protocol primitives into the JSON and is more meant for machine consumption. It has the following format:
+The final AST format encodes protocol primitives into the JSON and is more meant for machine consumption. It has the following format. Note that all fields are **required** but initialized with default blank values.
 
-TODO
+Each node in the structure has three fields:
+
+1. `name`: The name of the ambient
+2. `capabilities`: The capabilities and co-capabilitie of the ambient
+3. `children`: array of one or more child ambients.
+
+Parallel computation is simply encoded using arrays.
 
 ### Compiler Output
 
@@ -196,16 +225,22 @@ Note that to get ambient syntax from, you will also need `js2amb`.
 
 ## Contributing
 
-Please do! If you're _at all_ interested in this topic you should definitely
+Please do! Issues and PRs are very welcome.
+
+If you're _at all_ interested in this topic you should definitely
 [seek us out on Gitter](https://gitter.im/ambientsprotocol/community), open issues, and submit PRs.
 
-To run the tests.
+To run the tests:
 
 ```bash
 $ npm install
-% make test
+% npm test
 ```
-To edit the parser syntax, edit the grammar at `src/parser/ambients.pegjs` and then run `make build` to build the `parser.js` file (optimized for speed) and its little buddy the `parser-tiny.js` file, optimized for size.
+
+### Contribution Notes:
+- `npm test` is mapped to `make test` and either command should produce identical output.
+- To edit the IR parser syntax, edit the grammar at `src/ir/ambients.pegjs` and then run `make build` to build the `parser.js` file (optimized for speed) and its little buddy the `parser-tiny.js` file, optimized for size.
+- To edit the final parser syntax, edit the js file at `src/parser/index.js` directly.
 
 ## License
 
