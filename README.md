@@ -10,6 +10,7 @@
     - [Compiler steps](#compiler-steps)
     - [Intermediate abstract syntax tree format](#intermediate-abstract-syntax-tree-format)
     - [Final abstract syntax tree format](#final-abstract-syntax-tree-format)
+    - [Compiler Output](#compiler-output)
 - [Install](#install)
 - [Usage](#usage)
     - [Via the command line](#via-the-command-line)
