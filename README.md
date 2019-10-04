@@ -35,7 +35,7 @@ From the [Ambients whitepaper](https://github.com/ambientsprotocol/whitepaper/bl
 > 2. translate the intermediate structure to the computation primitives, distribution primitives and computation abstractions of the Ambients protocol
 > 3. generate the bytecode executable from the primitives
 
-`ambc` satisfies requirements #1 and #2 by compiling ambients syntax, and JavaScript into either an intermeidate representation or final [Abstract Syntax Tree](#abstract-syntax-tree-format).
+`ambc` satisfies requirements #1 and #2 by compiling ambients syntax, and JavaScript into either an intermeidate representation or final [Abstract Syntax Tree](#intermediate-abstract-syntax-tree-format).
 
 Both ASTs are lossless encodings, meaning that no data is lost from the ambient syntax and by-proxy the original JS code. Downstream components in the overall system can satisfy requirement #3 as required.
 
