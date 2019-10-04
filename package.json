@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Compiles source code to Ambients protocol syntax",
   "main": "src/index.js",
+  "bin" : { "ambc" : "src/cli.js" },
   "scripts": {
     "test": "make test",
     "build:parser": "pegjs -o src/ir/index.js src/ir/ambients.pegjs",

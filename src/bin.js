@@ -1,38 +1,69 @@
 #!/usr/bin/env node
 
+const argv = require('yargs')
+  .usage('$0 <input> [options]', 'Compile source code to ambient ', (yargs) => {
+    yargs
+      .positional('input', {
+        describe: 'Path to the source code file you want to compile'
+      })
+      .option('format', {
+        describe: 'Output format of the compiler',
+        choices: ['ambient', 'ir', 'final'],
+        default: 'final'
+      })
+      .option('display', {
+        describe: 'Write output to stdout instead of the output file',
+        type: 'boolean',
+        default: false
+      })
+      .option('o', {
+        describe: 'Use to specify a custom path to the output file i.e. "./out/funcion.js"',
+        default: 'output.json'
+      })
+  })
+  .showHelpOnFail(true, 'Specify --help for available options')
+  .argv
+
 const fs = require('fs')
 const js2amb = require('js2amb')
 const mime = require('mime-types')
-const argv = require('yargs')
-  .usage('$0 file [-o output]')
-  .argv
-
 const { parse, irParser } = require('./index')
+
+const output = (ambient, argv) => {
+  // --format option
+  let result
+  switch (argv.format) {
+    case 'ambient':
+      result = ambient
+      break
+    case 'ir':
+      result = irParser.parse(ambient)
+      result = JSON.stringify(result, null, 2)
+      break
+    case 'final':
+      result = parse(ambient)
+      result = JSON.stringify(result, null, 2)
+      break
+  }
+
+  // --display flag
+  // -o option
+  argv.display ? process.stdout.write(result) : fs.writeFileSync(argv.o, result)
+}
 
 // Register new MIME type for .ambient files
 mime.extensions['text/ambients'] = ['ambient']
 mime.types.ambient = 'text/ambients'
 
-const filename = argv._[0]
-let results, ambient
+const file = fs.readFileSync(argv.input).toString().trim()
 
-const output = (ambient, argv) => {
-  if (argv.intermediate) return irParser.parse(ambient)
-  return parse(ambient)
-}
-
-switch (mime.lookup(filename)) {
+switch (mime.lookup(argv.input)) {
   case 'application/javascript':
-    var js = fs.readFileSync(filename).toString().trim()
-    ambient = js2amb(js)
-    results = output(ambient, argv)
+    output(js2amb(file), argv)
     break
   case 'text/ambients':
-    ambient = fs.readFileSync(filename).toString().trim()
-    results = output(ambient, argv)
+    output(file, argv)
     break
   default:
     throw new Error('File type not recognized')
 }
-
-process.stdout.write(JSON.stringify(results, null, 2))
