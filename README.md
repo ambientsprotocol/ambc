@@ -11,6 +11,8 @@
     - [Abstract syntax tree format](#abstract-syntax-tree-format)
 - [Install](#install)
 - [Usage](#usage)
+    - [Via the command line](#via-the-command-line)
+    - [In Code](#in-code)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -116,29 +118,58 @@ $ cd ambc
 $ npm install
 ```
 
-# Usage
+## Usage
 
-There is currently rudimentary CLI support via `src/bin.js`:
+### Via the command line
+
+
+Usage for the CLI tool can
 
 ```bash
-$ ./src/bin.js path/to/js/file.js # outputs AST
-$ ./src/bin.js other/path/raw.ambient # Also understands ambient syntax
+$ npm install -g ambc # coming soon
+$ ambc
+bin.js <input> [options]
+
+Compile source code to ambient
+
+Positionals:
+  input  Path to the source code file you want to compile
+
+Opções:
+  --help     Show help                                                 [boolean]
+  --version  Show version number                                       [boolean]
+  --format   Output format of the compiler
+                          [choices: "ambient", "ir", "final"] [default: "final"]
+  --display  Write output to stdout instead of the output file
+                                                       [boolean] [default: false]
+  -o         Use to specify a custom path to the output file i.e.
+             "./out/function.js"                         [default: "output.json"]
 ```
 
-You can run the tests.
+### In code
+
+You can also use `ambc` within your JavaScript code.
+
+```JavaScript
+const js2amb = require('js2amb')
+const { irParser, parse } = require('ambc')
+```
+
+Note that to get ambient syntax from, you will also need `js2amb`.
+
+## Contributing
+
+Please do! If you're _at all_ interested in this topic you should definitely
+[seek us out on Gitter](https://gitter.im/ambientsprotocol/community), open issues, and submit PRs.
+
+To run the tests.
 
 ```bash
 $ npm install
 % make test
 ```
-
-# Contributing
-
-Please do! If you're _at all_ interested in this topic you should definitely
-[seek us out on Gitter](https://gitter.im/ambientsprotocol/community), open issues, and submit PRs.
-
 To edit the parser syntax, edit the grammar at `src/parser/ambients.pegjs` and then run `make build` to build the `parser.js` file (optimized for speed) and its little buddy the `parser-tiny.js` file, optimized for size.
 
-# License
+## License
 
 [MIT](LICENSE) © Haja Networks Oy
