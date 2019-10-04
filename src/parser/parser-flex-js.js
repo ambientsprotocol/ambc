@@ -1,16 +1,15 @@
 const Lexer = require('flex-js')
 const assert = require("assert")
 
-// const input = "a[in_ b.open_] | open a | b[in a]"
-// const input = "a[in_ b.open b.open_] | open a | b[in a.open_|result[]]"
 // const input = "func[in_ x.open x.open_] | x[in func.open_ | result[y[open_]]] | open func"
 
 const parse = (input) => {
-  // const input = process.argv[2]
   let depth = 0
   let curOp = null
 
-  let ambient = {name: "", children: [], capabilities: [], prev: null}
+  let ambient = {name: "", children: [], capabilities: [], create: [], prev: null}
+  let blockParent = null
+  let isInBlock = false
 
   const ambientToString = (a) => {
     return a.next.map((e, i) => {
@@ -55,6 +54,7 @@ const parse = (input) => {
 
   const lexer = new Lexer()
   lexer.addState('ambient', true)
+  lexer.addState('comment', false)
 
   lexer.addRule(/(in+\s+\w+\b)/, createNext)
   lexer.addRule(/(in_+\s+\w+\b)/, createNext)
@@ -63,17 +63,39 @@ const parse = (input) => {
   lexer.addRule(/(open+\s+\w+\b)/, createNext)
   lexer.addRule(/(open_+)/, createNext)
   lexer.addRule('|', endOfSequence)
+  lexer.addRule('.', lexer => {})
   lexer.addRule('[', lexer => {})
   lexer.addRule(']', lexer => {
     endOfSequence()
+    // console.log(">>", JSON.stringify(ambient, null, 2))
     const prev = ambient.prev
     delete ambient.prev
     prev.children.push(ambient)
     ambient = prev
   })
+
+  lexer.addRule('(', lexer => {
+    // console.log()
+    // console.log("1", ambient)
+    blockParent = Object.assign({}, ambient)
+    ambient.capabilities.push("create")
+    ambient = {name: "", children: [], capabilities: [], create: [], prev: Object.assign({}, ambient)}
+  })
+  lexer.addRule(')', lexer => {
+    // console.log()
+    // console.log("2", ambient)
+    // console.log("------------\n", JSON.stringify(ambient, null, 2))
+    // console.log("------------")
+    const prev = ambient.prev
+    delete ambient.prev
+    prev.create.push(ambient)
+    ambient = prev
+    // console.log("3", JSON.stringify(ambient, null, 2))
+  })
+
   // Match words as ambient names
   lexer.addRule(/\w+\b/, lexer => {
-    ambient = {name: lexer.text, children: [], capabilities: [], prev: ambient}
+    ambient = {name: lexer.text, children: [], capabilities: [], create: [], prev: ambient}
   })
   // Discard everything else
   lexer.addRule(/\w/, lexer.discard())
@@ -83,6 +105,7 @@ const parse = (input) => {
   lexer.lex()
 
   delete ambient.prev
+  // console.log(JSON.stringify(ambient, null, 2))
   return ambient
 }
 
