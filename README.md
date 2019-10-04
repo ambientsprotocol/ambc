@@ -156,10 +156,20 @@ The final AST format encodes protocol primitives into the JSON and is more meant
 Each node in the structure has three fields:
 
 1. `name`: The name of the ambient
-2. `capabilities`: The capabilities and co-capabilitie of the ambient
+2. `capabilities`: The capabilities and co-capabilitie of the ambient. Each capability has three fields:
+    1. `op`: The operation to take, one of:
+        - in
+        - in_
+        - out
+        - out_
+        - open
+        - open_
+    2. `target`: The name of the ambient the capability refers to
+    3. `next`: The action to take after the capability has completed
 3. `children`: array of one or more child ambients.
+4. `create`: used to encode group execution, `( )` in the ambient syntax.
 
-Parallel computation is simply encoded using arrays.
+Parallel computation is simply encoded using arrays, and serial computation is encoded using a tree structure, using the `children` field.
 
 ### Compiler Output
 
