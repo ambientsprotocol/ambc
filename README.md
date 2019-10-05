@@ -1,6 +1,6 @@
 # Ambients Protocol Compiler _(ambc)_
 
-> Ambient Syntax `a[]` to JSON represntation `{ "type": "Ambient", "id": "a", "children": [] }`
+> Ambient Syntax `a[]` to JSON represntation `{ "id": "a", "children": [], "capabilities": [], "create": [] }`
 
 ## Table of contents
 
