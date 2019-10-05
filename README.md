@@ -1,6 +1,6 @@
 # Ambients Protocol Compiler _(ambc)_
 
-> Ambient Syntax `a[]` to abstract syntax tree `{ "id": "a", "children": [], "capabilities": [], "create": [] }`
+> Ambient Syntax `a[]` to AST `{ "id": "a", "children": [], "capabilities": [], "create": [] }`
 
 ## Table of contents
 
