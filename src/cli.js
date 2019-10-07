@@ -42,7 +42,6 @@ const argv = require('yargs')
       const IPFS = require('ipfs-http-client')
       const addr = multiaddr(argv['ipfs-api'])
       const nodeAddress = addr.nodeAddress()
-      console.log(nodeAddress)
       ipfs = new IPFS(nodeAddress.address, nodeAddress.port)
     } else {
       const IPFS = require('ipfs')
