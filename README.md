@@ -5,16 +5,16 @@
 ## Table of contents
 
 - [Background](#background)
+- [Install](#install)
+- [Usage](#usage)
+    - [Via the command line](#via-the-command-line)
+    - [In code](#in-code)
 - [Description](#description)
     - [Supported source languages](#supported-source-languages)
     - [Compiler steps](#compiler-steps)
     - [Intermediate abstract syntax tree format](#intermediate-abstract-syntax-tree-format)
     - [Final abstract syntax tree format](#final-abstract-syntax-tree-format)
     - [Compiler Output](#compiler-output)
-- [Install](#install)
-- [Usage](#usage)
-    - [Via the command line](#via-the-command-line)
-    - [In code](#in-code)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -44,7 +44,7 @@ $ npm install
 ### Via the command line
 
 
-Usage for the CLI tool can
+Usage for the CLI tool can be viewed by simply running `ambc`:
 
 ```bash
 $ npm install -g ambc # coming soon
@@ -56,15 +56,17 @@ Compile source code to ambient
 Positionals:
   input  Path to the source code file you want to compile
 
-Opções:
-  --help     Show help                                                 [boolean]
-  --version  Show version number                                       [boolean]
-  --format   Output format of the compiler
-                          [choices: "ambient", "ir", "final"] [default: "final"]
-  --display  Write output to stdout instead of the output file
+Options:
+  --help      Show help                                                 [boolean]
+  --version   Show version number                                       [boolean]
+  --display   Write output to stdout instead of the output file
                                                        [boolean] [default: false]
-  -o         Use to specify a custom path to the output file i.e.
-             "./out/function.js"                         [default: "output.json"]
+  --ipfs-api  Use an IPFS HTTP API by specifying a multiaddress i.e.
+             "/ip4/127.0.0.1/tcp/5001"
+  --format    Output format of the compiler
+                           [choices: "ambient", "ir", "final"] [default: "final"]
+  -o          Use to specify a custom path to the output file i.e.
+              "./out/function.js"
 ```
 
 ### In code
@@ -77,13 +79,12 @@ const { irParser, parse } = require('ambc')
 
 const js = '() => "hello"'
 
-js2amb(js)          // Outputs ambient syntax from JS
-irParser.parse(js)  // Outputs intermediate representation AST
-parse(js)           // Outputs final AST
-
+const ambientSyntax = js2amb(js)        // Outputs ambient syntax from JS
+const irAst = irParser.parse(js)        // Outputs intermediate representation AST
+const finalAst = parse(js)              // Outputs final AST
 ```
 
-Note that to get ambient syntax from, you will also need `js2amb`.
+Note that to get ambient syntax from JavaScript, you will also need `js2amb`.
 
 ## Description
 
@@ -230,9 +231,11 @@ Parallel computation is simply encoded using arrays, and serial computation is e
 
 ### Compiler Output
 
-Finally, `ambc` should return a [multihash](https://github.com/multiformats/multihash) from that operation. This hash will be used by the execution engine to run the code on a distributed, peer to peer network.
+If no output `-o` is specified, and the `--display` flag is not used, `ambc` will return
+a [multihash](https://github.com/multiformats/multihash) from an `ipfs dag put` operation.
 
-This is currently not yet implemented.
+This hash will be used by the execution engine to run the code on a distributed, peer to peer
+network.
 
 ## Contributing
 
