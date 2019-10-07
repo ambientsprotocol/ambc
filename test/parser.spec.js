@@ -26,7 +26,7 @@ describe('Parser', function () {
       const syntax = fs.readFileSync(PARSER_FIXTURES_PATH + fixtures[0])
       // console.log(JSON.stringify(parse(syntax.toString().trim())))
       const result = fs.readFileSync(PARSER_FIXTURES_PATH + fixtures[1])
-      assert.deepStrictEqual(parse(syntax.toString().trim()), JSON.parse(result.toString()))
+      assert.deepStrictEqual(parse(syntax.toString().trim()), JSON.parse(result.toString()), `Failed at "${fixtures[0]}`)
       fixtures.splice(0, 2)
     }
   })
