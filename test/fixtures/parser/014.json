@@ -1,1 +1,141 @@
-{"name":"","children":[{"name":"string_concat","children":[],"capabilities":[{"op":"in_","target":"call","next":{"op":"open","target":"call","next":{"op":"create","target":"","next":null}}}],"create":[{"name":"","children":[{"name":"func","children":[{"name":"right","children":[],"capabilities":[{"op":"in_","target":"arg","next":{"op":"open","target":"arg","next":{"op":"in","target":"string","next":{"op":"in","target":"concat","next":null}}}}],"create":[]},{"name":"string","children":[{"name":"concat","children":[],"capabilities":[{"op":"in_","target":"left","next":null},{"op":"in_","target":"right","next":null}],"create":[]}],"capabilities":[{"op":"in_","target":"left","next":null},{"op":"in_","target":"right","next":null}],"create":[]}],"capabilities":[{"op":"open_","target":"","next":null}],"create":[{"name":"left","children":[],"capabilities":[{"op":"in_","target":"arg","next":{"op":"open","target":"arg","next":{"op":"in","target":"string","next":{"op":"in","target":"concat","next":null}}}}],"create":[]}]}],"capabilities":[{"op":"open","target":"return","next":{"op":"open_","target":"","next":null}}],"create":[]}]}],"capabilities":[],"create":[]}
+{
+  "name": "",
+  "children": [
+    {
+      "name": "string_concat",
+      "children": [],
+      "capabilities": [
+        {
+          "op": "in_",
+          "target": "call",
+          "next": {
+            "op": "open",
+            "target": "call",
+            "next": {
+              "op": "create",
+              "target": "",
+              "next": null
+            }
+          }
+        }
+      ],
+      "create": [
+        {
+          "name": "",
+          "children": [
+            {
+              "name": "func",
+              "children": [
+                {
+                  "name": "left",
+                  "children": [],
+                  "capabilities": [
+                    {
+                      "op": "in_",
+                      "target": "arg",
+                      "next": {
+                        "op": "open",
+                        "target": "arg",
+                        "next": {
+                          "op": "in",
+                          "target": "string",
+                          "next": {
+                            "op": "in",
+                            "target": "concat",
+                            "next": null
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "create": []
+                },
+                {
+                  "name": "right",
+                  "children": [],
+                  "capabilities": [
+                    {
+                      "op": "in_",
+                      "target": "arg",
+                      "next": {
+                        "op": "open",
+                        "target": "arg",
+                        "next": {
+                          "op": "in",
+                          "target": "string",
+                          "next": {
+                            "op": "in",
+                            "target": "concat",
+                            "next": null
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "create": []
+                },
+                {
+                  "name": "string",
+                  "children": [
+                    {
+                      "name": "concat",
+                      "children": [],
+                      "capabilities": [
+                        {
+                          "op": "in_",
+                          "target": "left",
+                          "next": null
+                        },
+                        {
+                          "op": "in_",
+                          "target": "right",
+                          "next": null
+                        }
+                      ],
+                      "create": []
+                    }
+                  ],
+                  "capabilities": [
+                    {
+                      "op": "in_",
+                      "target": "left",
+                      "next": null
+                    },
+                    {
+                      "op": "in_",
+                      "target": "right",
+                      "next": null
+                    }
+                  ],
+                  "create": []
+                }
+              ],
+              "capabilities": [
+                {
+                  "op": "open_",
+                  "target": "",
+                  "next": null
+                }
+              ],
+              "create": []
+            }
+          ],
+          "capabilities": [
+            {
+              "op": "open",
+              "target": "return",
+              "next": {
+                "op": "open_",
+                "target": "",
+                "next": null
+              }
+            }
+          ],
+          "create": []
+        }
+      ]
+    }
+  ],
+  "capabilities": [],
+  "create": []
+}
