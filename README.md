@@ -24,6 +24,67 @@
 
 The protocol also includes guarantees as to the verfiability and safety of the code, all without a blockchain.
 
+## Install
+
+First, [install node.js](https://www.nodejs.org) Then:
+
+```bash
+$ git clone https://github.com/aphelionz/ambc
+$ cd ambc
+$ npm install
+```
+
+## Usage
+
+### Supported source languages
+
+- Ambients Syntax
+- [JavaScript](https://github.com/aphelionz/js2amb) (WIP)
+
+### Via the command line
+
+
+Usage for the CLI tool can
+
+```bash
+$ npm install -g ambc # coming soon
+$ ambc
+bin.js <input> [options]
+
+Compile source code to ambient
+
+Positionals:
+  input  Path to the source code file you want to compile
+
+Opções:
+  --help     Show help                                                 [boolean]
+  --version  Show version number                                       [boolean]
+  --format   Output format of the compiler
+                          [choices: "ambient", "ir", "final"] [default: "final"]
+  --display  Write output to stdout instead of the output file
+                                                       [boolean] [default: false]
+  -o         Use to specify a custom path to the output file i.e.
+             "./out/function.js"                         [default: "output.json"]
+```
+
+### In code
+
+You can also use `ambc` within your JavaScript code.
+
+```JavaScript
+const js2amb = require('js2amb')
+const { irParser, parse } = require('ambc')
+
+const js = '() => "hello"'
+
+js2amb(js)          // Outputs ambient syntax from JS
+irParser.parse(js)  // Outputs intermediate representation AST
+parse(js)           // Outputs final AST
+
+```
+
+Note that to get ambient syntax from, you will also need `js2amb`.
+
 ## Description
 
 From the [Ambients whitepaper](https://github.com/ambientsprotocol/whitepaper/blob/master/06-compilation-model.md#translating-ambients-programs):
@@ -39,11 +100,6 @@ From the [Ambients whitepaper](https://github.com/ambientsprotocol/whitepaper/bl
 `ambc` satisfies requirements #1 and #2 by compiling ambients syntax, and JavaScript into either an intermeidate representation or final [Abstract Syntax Tree](#intermediate-abstract-syntax-tree-format).
 
 Both ASTs are lossless encodings, meaning that no data is lost from the ambient syntax and by-proxy the original JS code. Downstream components in the overall system can satisfy requirement #3 as required.
-
-### Supported source languages
-
-- Ambients Syntax
-- [JavaScript](https://github.com/aphelionz/js2amb) (WIP)
 
 ### Compiler steps
 
@@ -177,62 +233,6 @@ Parallel computation is simply encoded using arrays, and serial computation is e
 Finally, `ambc` should return a [multihash](https://github.com/multiformats/multihash) from that operation. This hash will be used by the execution engine to run the code on a distributed, peer to peer network.
 
 This is currently not yet implemented.
-
-## Install
-
-First, [install node.js](https://www.nodejs.org) Then:
-
-```bash
-$ git clone https://github.com/aphelionz/ambc
-$ cd ambc
-$ npm install
-```
-
-## Usage
-
-### Via the command line
-
-
-Usage for the CLI tool can
-
-```bash
-$ npm install -g ambc # coming soon
-$ ambc
-bin.js <input> [options]
-
-Compile source code to ambient
-
-Positionals:
-  input  Path to the source code file you want to compile
-
-Opções:
-  --help     Show help                                                 [boolean]
-  --version  Show version number                                       [boolean]
-  --format   Output format of the compiler
-                          [choices: "ambient", "ir", "final"] [default: "final"]
-  --display  Write output to stdout instead of the output file
-                                                       [boolean] [default: false]
-  -o         Use to specify a custom path to the output file i.e.
-             "./out/function.js"                         [default: "output.json"]
-```
-
-### In code
-
-You can also use `ambc` within your JavaScript code.
-
-```JavaScript
-const js2amb = require('js2amb')
-const { irParser, parse } = require('ambc')
-
-const js = '() => "hello"'
-
-js2amb(js)          // Outputs ambient syntax from JS
-irParser.parse(js)  // Outputs intermediate representation AST
-parse(js)           // Outputs final AST
-
-```
-
-Note that to get ambient syntax from, you will also need `js2amb`.
 
 ## Contributing
 
