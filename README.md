@@ -29,7 +29,7 @@ The protocol also includes guarantees as to the verfiability and safety of the c
 First, [install node.js](https://www.nodejs.org) Then:
 
 ```bash
-$ git clone https://github.com/aphelionz/ambc
+$ git clone https://github.com/ambientsprotocol/ambc
 $ cd ambc
 $ npm install
 ```
