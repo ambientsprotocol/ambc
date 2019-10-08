@@ -26,6 +26,10 @@ The protocol also includes guarantees as to the verfiability and safety of the c
 
 ## Install
 
+```bash
+$ npm install ambc -g
+```
+
 First, [install node.js](https://www.nodejs.org) Then:
 
 ```bash
@@ -47,11 +51,7 @@ $ npm install
 Usage for the CLI tool can
 
 ```bash
-$ npm install -g ambc # coming soon
-$ ambc
-bin.js <input> [options]
-
-Compile source code to ambient
+Compile source code to ambient syntax or JSON AST
 
 Positionals:
   input  Path to the source code file you want to compile
