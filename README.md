@@ -138,16 +138,16 @@ open func
 ⬇
 ```json
 { "type": "Parallel", "children": [
-  { "type": "Ambient", "id": "func", "children":[
+  { "type": "Ambient", "id": "func", "children": [
     { "type": "Parallel", "children": [
       { "type": "Open_", "id": "*" },
       { "type": "Ambient", "id": "string", "children": [
         { "type": "Noop", "id": "hello" }
-      ]
-    }
-  ] },
-  { "type": "Open", "id": "func" }
-] }
+      ]}
+    ]},
+    { "type": "Open", "id": "func" }
+  ]}
+]}
 ```
 
 #### Step 2b: Ambients Syntax to final AST
@@ -245,7 +245,7 @@ To run the tests:
 
 ```bash
 $ npm install
-% npm test
+$ npm test
 ```
 
 ### Contribution Notes:
