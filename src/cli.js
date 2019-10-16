@@ -2,9 +2,8 @@
 
 const fs = require('fs')
 const mime = require('mime-types')
-const { js } = require('./index')
+const { output } = require('./index')
 const multiaddr = require('multiaddr')
-const io = require('orbit-db-io')
 
 const argv = require('yargs')
   .usage('$0 <input> [options]', 'Compile source code to ambient syntax or JSON AST', (yargs) => {
@@ -51,46 +50,23 @@ const argv = require('yargs')
     throw new Error('Please use npm to install either `ipfs` or `ipfs-http-client`.')
   }
 
-  const output = async (ambient, argv) => {
-    // --format option
-    let result
-    switch (argv.format) {
-      case 'ambient':
-        result = ambient
-        break
-      case 'ir':
-        result = js.irParser.parse(ambient)
-        result = JSON.stringify(result, null, 2)
-        break
-      default:
-        result = js.parse(ambient)
-        result = JSON.stringify(result, null, 2)
-        break
-    }
-
-    // --display flag
-    // -o option
-    if (argv.display) return process.stdout.write(result)
-    if (argv.o) return fs.writeFileSync(argv.o, result)
-
-    const hash = await io.write(ipfs, 'dag-cbor', result)
-    process.stdout.write(hash)
-  }
-
   // Register new MIME type for .ambient files
   mime.extensions['text/ambients'] = ['ambient']
   mime.types.ambient = 'text/ambients'
 
   const file = fs.readFileSync(argv.input).toString().trim()
 
+  let result
   switch (mime.lookup(argv.input)) {
     case 'application/javascript':
-      await output(file, argv); break
+      result = await output(ipfs, file, argv); break
     case 'text/ambients':
-      await output(file, argv); break
+      result = await output(ipfs, file, argv); break
     default:
       throw new Error('File type not recognized')
   }
+
+  process.stdout.write(result)
 
   if (!argv['ipfs-api']) {
     await ipfs.stop()
