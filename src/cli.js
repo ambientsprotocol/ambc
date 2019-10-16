@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
 const fs = require('fs')
-const js2amb = require('js2amb')
 const mime = require('mime-types')
-const { parse, irParser } = require('./index')
+const { js } = require('./index')
 const multiaddr = require('multiaddr')
 const io = require('orbit-db-io')
 
@@ -60,11 +59,11 @@ const argv = require('yargs')
         result = ambient
         break
       case 'ir':
-        result = irParser.parse(ambient)
+        result = js.irParser.parse(ambient)
         result = JSON.stringify(result, null, 2)
         break
       default:
-        result = parse(ambient)
+        result = js.parse(ambient)
         result = JSON.stringify(result, null, 2)
         break
     }
@@ -86,7 +85,7 @@ const argv = require('yargs')
 
   switch (mime.lookup(argv.input)) {
     case 'application/javascript':
-      await output(js2amb(file), argv); break
+      await output(file, argv); break
     case 'text/ambients':
       await output(file, argv); break
     default:

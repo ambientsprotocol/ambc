@@ -4,7 +4,7 @@ const io = require('orbit-db-io')
 const CID = require('cids')
 const multihash = require('multihashes')
 
-const { parse } = require('../src')
+const { ambients } = require('../src')
 const fs = require('fs')
 
 const PARSER_FIXTURES_PATH = 'test/fixtures/parser/'
@@ -16,7 +16,7 @@ describe('DAG', function () {
   before(async () => {
     ipfs = await IPFS.create()
     const syntax = fs.readFileSync(PARSER_FIXTURES_PATH + fixtures[6])
-    const result = parse(syntax.toString())
+    const result = ambients.parse(syntax.toString())
     const hash = await io.write(ipfs, 'dag-cbor', result)
     assert.strictEqual(hash, 'zdpuAzo5YJPXi4ToJfY9Nfdx51JnYQ8R8PSQaiLrQ8tW3j211')
     cid = new CID(hash)
@@ -66,7 +66,7 @@ describe('DAG', function () {
       'children/0/capabilities/0/op',
       'children/0/capabilities/0/next',
       'children/0/capabilities/0/target',
-      'capabilities',
+      'capabilities'
     ]
     assert.deepStrictEqual((await ipfs.dag.tree(cid)), tree)
   })
