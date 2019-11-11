@@ -1,6 +1,6 @@
 const assert = require('assert')
 
-const { parse, irParser } = require('../src')
+const { ambients, js } = require('../src')
 const fs = require('fs')
 
 const IR_FIXTURES_PATH = 'test/fixtures/ir/'
@@ -14,7 +14,7 @@ describe('Parser', function () {
       const syntax = fs.readFileSync(IR_FIXTURES_PATH + fixtures[0])
       // console.log(JSON.stringify(parser.parse(syntax.toString().trim())))
       const result = fs.readFileSync(IR_FIXTURES_PATH + fixtures[1])
-      assert.deepStrictEqual(irParser.parse(syntax.toString().trim()), JSON.parse(result.toString()))
+      assert.deepStrictEqual(ambients.irParser.parse(syntax.toString().trim()), JSON.parse(result.toString()))
       fixtures.splice(0, 2)
     }
   })
@@ -23,10 +23,10 @@ describe('Parser', function () {
     const fixtures = fs.readdirSync(PARSER_FIXTURES_PATH)
     while (fixtures.length > 0) {
       console.log(`Parsing: ${fixtures[0].split('.')[0]}`)
-      const syntax = fs.readFileSync(PARSER_FIXTURES_PATH + fixtures[0])
+      const syntax = fs.readFileSync(PARSER_FIXTURES_PATH + fixtures[0]).toString().trim()
       // console.log(JSON.stringify(parse(syntax.toString().trim())))
-      const result = fs.readFileSync(PARSER_FIXTURES_PATH + fixtures[1])
-      assert.deepStrictEqual(parse(syntax.toString().trim()), JSON.parse(result.toString()), `Failed at "${fixtures[0]}`)
+      const result = fs.readFileSync(PARSER_FIXTURES_PATH + fixtures[1]).toString().trim()
+      assert.deepStrictEqual(ambients.parse(syntax), JSON.parse(result), `Failed at "${fixtures[0]}`)
       fixtures.splice(0, 2)
     }
   })
