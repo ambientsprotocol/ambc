@@ -66,7 +66,7 @@ const argv = require('yargs')
       throw new Error('File type not recognized')
   }
 
-  process.stdout.write(result)
+  process.stdout.write(result + '\n')
 
   if (!argv['ipfs-api']) {
     await ipfs.stop()
