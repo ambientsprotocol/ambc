@@ -16,17 +16,17 @@
   "dependencies": {
     "flex-js": "^1.0.5",
     "js2amb": "aphelionz/js2amb#master",
-    "mime-types": "^2.1.24",
-    "multiaddr": "^7.1.0",
+    "mime-types": "^2.1.25",
+    "multiaddr": "^7.2.1",
     "orbit-db-io": "^0.1.1",
     "pegjs": "^0.10.0",
-    "yargs": "^14.0.0"
+    "yargs": "^14.2.0"
   },
   "devDependencies": {
     "cids": "^0.7.1",
-    "ipfs": "^0.38.0",
-    "ipfs-http-client": "^38.2.0",
-    "mocha": "^6.2.1",
+    "ipfs": "^0.39.0",
+    "ipfs-http-client": "^39.0.2",
+    "mocha": "^6.2.2",
     "multihashes": "^0.4.15"
   },
   "standard": {
