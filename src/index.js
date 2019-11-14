@@ -18,7 +18,7 @@ const js = {
 }
 
 const output = async (ipfs, ambient, argv) => {
-  console.log(argv)
+  // console.log(argv)
   // --format option
   let result
   switch (argv.format) {
