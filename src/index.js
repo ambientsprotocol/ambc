@@ -27,11 +27,9 @@ const output = async (ipfs, ambient, argv) => {
       break
     case 'ir':
       result = js.irParser.parse(ambient)
-      result = JSON.stringify(result, null, 2)
       break
     default:
       result = js.parse(ambient)
-      result = JSON.stringify(result, null, 2)
       break
   }
 
