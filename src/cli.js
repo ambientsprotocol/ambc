@@ -43,7 +43,7 @@ const argv = require('yargs')
       ipfs = new IPFS(nodeAddress.address, nodeAddress.port)
     } else {
       const IPFS = require('ipfs')
-      ipfs = await IPFS.create()
+      ipfs = await IPFS.create({ start: false })
     }
   } catch (e) {
     console.error(e)
@@ -67,9 +67,5 @@ const argv = require('yargs')
   }
 
   process.stdout.write(result + '\n')
-
-  if (!argv['ipfs-api']) {
-    await ipfs.stop()
-    process.exit(0)
-  }
+  process.exit(0)
 })(argv)
